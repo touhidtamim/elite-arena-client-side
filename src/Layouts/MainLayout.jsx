@@ -14,7 +14,7 @@ const MainLayout = () => {
 
       {navigation.state === "loading" && <Spinner />}
 
-      <div className="bg-gray-900 min-h-[90vh]">
+      <div className="bg-gray-900 min-h-[90vh] text-white">
         <Outlet />
       </div>
 
