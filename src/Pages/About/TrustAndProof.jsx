@@ -134,7 +134,7 @@ const TrustAndProof = () => {
   return (
     <section
       ref={ref}
-      className="bg-black text-white px-4 py-20 md:px-24 lg:space-y-20 overflow-hidden"
+      className="bg-black text-white  px-4 py-20 md:px-24 lg:space-y-20 overflow-hidden"
     >
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 text-center">

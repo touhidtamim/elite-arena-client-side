@@ -29,7 +29,7 @@ const EliteArenaStory = () => {
       >
         <motion.h2
           variants={fadeUpVariant}
-          className="text-4xl md:text-5xl font-bold mb-6 text-yellow-400 drop-shadow-sm"
+          className="text-4xl md:text-5xl font-bold mb-6 font-serif text-yellow-400 drop-shadow-sm"
         >
           Our Story
         </motion.h2>
@@ -37,7 +37,7 @@ const EliteArenaStory = () => {
           variants={fadeUpVariant}
           className="text-lg md:text-xl text-gray-300 leading-relaxed"
         >
-          Since our founding in 2023,{" "}
+          Since our founding in 2021,{" "}
           <span className="text-white font-semibold">Elite Arena</span> has
           evolved from a humble dream into one of Bangladesh’s premier sports
           hubs. We began with just 2 courts and a bold vision — to craft a safe,
@@ -90,7 +90,7 @@ const EliteArenaStory = () => {
         viewport={{ once: true, amount: 0.3 }}
         className="bg-gray-900/80 p-10 md:p-14 rounded-xl shadow-inner max-w-6xl mx-auto text-center space-y-6 border border-gray-800"
       >
-        <h3 className="text-3xl md:text-4xl font-bold text-yellow-400">
+        <h3 className="text-3xl md:text-4xl font-bold font-serif text-yellow-400">
           Our Vision & Mission
         </h3>
         <p className="text-gray-300 text-lg md:text-xl max-w-4xl mx-auto">
