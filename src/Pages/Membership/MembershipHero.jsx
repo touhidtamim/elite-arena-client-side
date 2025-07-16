@@ -1,61 +1,73 @@
 import { motion } from "framer-motion";
 
 const MembershipHero = () => {
+  const sentence =
+    "Unlock access to premium perks, early reservations, and a lifestyle of elite privileges at Elite Arena.";
+
   return (
-    <section className="relative h-[90vh] bg-black overflow-hidden">
-      {/* Background Image with Parallax Effect */}
+    <section className="relative h-[90vh] w-full overflow-hidden">
+      {/* Background Image with Parallax Zoom-Out */}
       <motion.div
-        className="absolute inset-0"
         initial={{ scale: 1.1 }}
         animate={{ scale: 1 }}
         transition={{ duration: 1.5, ease: "easeOut" }}
+        className="absolute inset-0"
       >
         <img
-          src="https://images.unsplash.com/photo-1547347298-4074fc3086f0"
-          alt="Elite Arena Members"
-          className="w-full h-full object-cover opacity-60"
+          src="https://i.postimg.cc/Pqcx7pZs/photo-1559171667-74fe3499b5ba-q-80-w-1170-auto-format-fit-crop-ixlib-rb-4-1.jpg"
+          alt="Elite Arena Membership"
+          className="w-full h-full object-cover object-center"
           loading="eager"
         />
         {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/60 to-black/80"></div>
       </motion.div>
 
-      {/* Content */}
+      {/* Foreground Content */}
       <div className="relative z-10 h-full flex items-center justify-center text-center px-4">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
+          transition={{ duration: 0.8 }}
         >
-          <motion.h1
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="text-4xl md:text-6xl font-bold text-white mb-6 font-serif"
-          >
-            <span className="text-yellow-400">Elevate</span> Your Experience
-          </motion.h1>
+          {/* Heading */}
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 font-serif tracking-tight text-white drop-shadow-xl">
+            Join the Circle.
+            <br />
+            Live Privileged.
+          </h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.7 }}
-            className="text-xl text-gray-300 max-w-2xl mx-auto mb-8"
+          {/* Staggered Word-by-Word Reveal */}
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={{
+              hidden: {},
+              visible: {
+                transition: {
+                  staggerChildren: 0.06,
+                },
+              },
+            }}
+            className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto flex flex-wrap justify-center gap-x-1 text-center leading-relaxed"
           >
-            Unlock exclusive benefits, priority access, and member-only
-            discounts
-          </motion.p>
-
-          <motion.button
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.9 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-3 px-8 rounded-full text-lg"
-          >
-            Explore Memberships
-          </motion.button>
+            {sentence.split(" ").map((word, idx) => (
+              <motion.span
+                key={idx}
+                className="inline-block"
+                variants={{
+                  hidden: { opacity: 0, y: 8, filter: "blur(4px)" },
+                  visible: { opacity: 1, y: 0, filter: "blur(0px)" },
+                }}
+                transition={{
+                  duration: 0.5,
+                  ease: "easeOut",
+                }}
+              >
+                {word}&nbsp;
+              </motion.span>
+            ))}
+          </motion.div>
         </motion.div>
       </div>
     </section>
