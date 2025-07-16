@@ -7,10 +7,10 @@ import MembershipHero from "./MembershipHero";
 const Membership = () => {
   return (
     <div className="bg-white text-gray-800">
-      {/* <MembershipHero />
+      <MembershipHero />
       <MembershipTiers />
       <MemberBenefits />
-      <MembershipCTA /> */}
+      <MembershipCTA />
     </div>
   );
 };
