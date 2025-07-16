@@ -28,7 +28,7 @@ const MembershipCTA = () => {
           transition={{ duration: 0.6, delay: 0.4 }}
           viewport={{ once: true }}
         >
-          <button className="bg-black hover:bg-gray-900 text-white font-bold py-4 px-8 rounded-full text-lg shadow-lg">
+          <button className="bg-black hover:bg-gray-900 text-white font-medium py-4 px-8 rounded-full text-lg shadow-lg">
             Claim Your Discount Now
           </button>
         </motion.div>
