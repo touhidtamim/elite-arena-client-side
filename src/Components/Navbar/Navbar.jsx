@@ -24,7 +24,7 @@ const Navbar = () => {
         <Logo />
 
         {/* Middle: NavLinks for medium & up */}
-        <div className="hidden lg:flex gap-5 py-3">
+        <div className="hidden lg:flex gap-5 py-3 font-serif">
           {navLinks.map((link) => (
             <NavLink
               key={link.path}
@@ -42,12 +42,12 @@ const Navbar = () => {
 
         {/* Right: Auth buttons for logged-out state */}
         <div className="hidden md:flex items-center gap-4 py-3">
-          <Link to="/login" className="hover:text-blue-400">
+          <Link to="/login" className="hover:text-blue-400 font-serif">
             Login
           </Link>
           <Link
             to="/register"
-            className="bg-blue-600 hover:bg-blue-700 px-4 py-1 rounded text-white font-semibold"
+            className="bg-blue-600 hover:bg-blue-700  font-serif px-4 py-1 rounded text-white "
           >
             Join
           </Link>
