@@ -3,28 +3,16 @@ import { motion } from "framer-motion";
 
 const JoinEventCTA = () => {
   return (
-    <motion.section
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      transition={{ duration: 0.8 }}
-      viewport={{ once: true }}
-      className="relative py-20 px-4 overflow-hidden bg-gradient-to-br from-gray-900 to-gray-800"
-    >
-      {/* Decorative elements */}
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute top-0 left-0 w-64 h-64 bg-yellow-400 rounded-full filter blur-[100px]"></div>
-        <div className="absolute bottom-0 right-0 w-64 h-64 bg-yellow-400 rounded-full filter blur-[100px]"></div>
-      </div>
-
-      <div className="max-w-4xl mx-auto relative z-10 text-center">
+    <section className="py-20 px-4 bg-gradient-to-r from-yellow-400 to-yellow-500">
+      <div className="max-w-4xl mx-auto text-center relative z-10">
         <motion.div
-          initial={{ y: -20 }}
-          whileInView={{ y: 0 }}
-          transition={{ duration: 0.5 }}
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
           viewport={{ once: true }}
           className="mb-2"
         >
-          <span className="inline-block px-4 py-1 text-sm font-bold text-yellow-400 bg-yellow-400/10 rounded-full border border-yellow-400/20">
+          <span className="inline-block px-4 py-1 text-sm font-medium text-white bg-gray-900 rounded-full border border-black">
             LIMITED AVAILABILITY
           </span>
         </motion.div>
@@ -34,10 +22,9 @@ const JoinEventCTA = () => {
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true }}
-          className="text-4xl md:text-5xl font-bold text-white mb-4 font-serif"
+          className="text-3xl md:text-4xl font-bold text-black mb-4 font-serif"
         >
-          <span className="text-yellow-400">Write Your Chapter</span> in Elite
-          History
+          Write Your Chapter in Elite History
         </motion.h2>
 
         <motion.p
@@ -45,7 +32,7 @@ const JoinEventCTA = () => {
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.4 }}
           viewport={{ once: true }}
-          className="text-xl text-gray-300 max-w-3xl mx-auto mb-8"
+          className="text-xl text-gray-900 max-w-3xl mx-auto mb-8"
         >
           The arena awaits your story. Will you be our next champion or the most
           passionate fan?
@@ -61,29 +48,17 @@ const JoinEventCTA = () => {
           <motion.a
             whileHover={{
               scale: 1.05,
-              boxShadow: "0 10px 25px -5px rgba(245, 158, 11, 0.4)",
+              boxShadow: "0 10px 25px -5px rgba(202, 138, 4, 0.6)",
             }}
             whileTap={{ scale: 0.98 }}
             href="/events"
-            className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-4 px-8 rounded-full text-lg transition-all"
+            className="bg-black hover:bg-gray-900 text-white font-semiold py-2 lg:py-3 px-8 rounded-full text-lg shadow-lg transition-all"
           >
             Claim Your Spot →
           </motion.a>
-
-          <motion.a
-            whileHover={{
-              scale: 1.05,
-              backgroundColor: "rgba(255,255,255,0.1)",
-            }}
-            whileTap={{ scale: 0.98 }}
-            href="/membership"
-            className="border-2 border-yellow-400 text-yellow-400 hover:text-white hover:border-white font-medium py-3.5 px-8 rounded-full text-lg transition-all"
-          >
-            Become a Member
-          </motion.a>
         </motion.div>
       </div>
-    </motion.section>
+    </section>
   );
 };
 

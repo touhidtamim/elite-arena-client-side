@@ -10,8 +10,8 @@ const GalleryPage = () => {
     <main>
       <GalleryHero />
       <MomentGrid />
-      <HighlightSlider />
       <QuoteSection />
+      <HighlightSlider />
       <CallToAction />
     </main>
   );

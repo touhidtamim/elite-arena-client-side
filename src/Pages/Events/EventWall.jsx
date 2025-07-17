@@ -204,7 +204,7 @@ const EventWall = () => {
   };
 
   return (
-    <div className="bg-gray-950 py-24 px-4">
+    <div className="bg-gradient-to-b from-gray-950 via-gray-700 to-gray-600 py-24 px-4">
       {/* Header */}
       <div className="max-w-7xl mx-auto text-center mb-10">
         <motion.div

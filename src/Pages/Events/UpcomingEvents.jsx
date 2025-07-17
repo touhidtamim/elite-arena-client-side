@@ -164,17 +164,6 @@ const UpcomingEvents = () => {
         </div>
 
         {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ delay: 0.4 }}
-          viewport={{ once: true }}
-          className="text-center mt-16"
-        >
-          <button className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-3 px-8 rounded-full transition-all shadow-lg hover:shadow-xl">
-            View Full Calendar
-          </button>
-        </motion.div>
       </div>
     </motion.section>
   );
