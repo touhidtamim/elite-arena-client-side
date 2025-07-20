@@ -62,10 +62,9 @@ const Register = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Password validation
     if (!validatePassword(formData.password)) {
       return Swal.fire({
         icon: "error",
@@ -91,12 +90,43 @@ const Register = () => {
       });
     }
 
+    let uploadedImageURL = null;
+
+    if (formData.profileImage) {
+      const imageForm = new FormData();
+      imageForm.append("image", formData.profileImage);
+
+      try {
+        const res = await fetch(
+          `https://api.imgbb.com/1/upload?key=${
+            import.meta.env.VITE_IMGBB_API_KEY
+          }`,
+          {
+            method: "POST",
+            body: imageForm,
+          }
+        );
+
+        const data = await res.json();
+        if (data.success) {
+          uploadedImageURL = data.data.url;
+        } else {
+          throw new Error("Image upload failed");
+        }
+      } catch (err) {
+        return Swal.fire({
+          icon: "error",
+          title: "Image Upload Failed",
+          text: err.message,
+        });
+      }
+    }
+
     createUser(formData.email, formData.password)
-      .then((result) => {
-        // Update profile (displayName and photoURL)
+      .then(() => {
         updateUser({
           displayName: formData.name,
-          photoURL: formData.previewImage || null,
+          photoURL: uploadedImageURL || null,
         })
           .then(() => {
             Swal.fire({
@@ -106,7 +136,7 @@ const Register = () => {
               timer: 1500,
               showConfirmButton: false,
             });
-            navigate("/"); // Redirect home or change route as needed
+            navigate("/");
           })
           .catch((err) => {
             Swal.fire({
@@ -161,15 +191,12 @@ const Register = () => {
   };
 
   return (
-    // Your original JSX untouched, just replace handlers and state with above logic
     <motion.div
       className="min-h-screen flex items-center justify-center bg-gray-950 pt-24 p-4 relative overflow-hidden"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
     >
-      {/* Background Grid and floating effects stay the same */}
-
       <motion.div
         className="z-10 w-full max-w-3xl"
         initial={{ y: 20, opacity: 0 }}
@@ -187,7 +214,6 @@ const Register = () => {
               </p>
             </div>
 
-            {/* Profile Picture Upload */}
             <div className="flex flex-col items-center mb-6">
               <div className="relative mb-2">
                 <div className="w-20 h-20 rounded-full bg-gray-800 border border-gray-700 overflow-hidden">
@@ -252,7 +278,6 @@ const Register = () => {
               onSubmit={handleSubmit}
               className="grid grid-cols-1 md:grid-cols-2 gap-6"
             >
-              {/* Name and Email side by side */}
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-1">
                   Full Name
@@ -283,7 +308,6 @@ const Register = () => {
                 />
               </div>
 
-              {/* Password */}
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-1">
                   Password
@@ -302,7 +326,6 @@ const Register = () => {
                 )}
               </div>
 
-              {/* Confirm Password */}
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-1">
                   Confirm Password
@@ -324,7 +347,6 @@ const Register = () => {
                   )}
               </div>
 
-              {/* Centered Sign Up Button */}
               <div className="md:col-span-2 flex justify-center">
                 <motion.button
                   type="submit"
@@ -341,7 +363,6 @@ const Register = () => {
               </div>
             </form>
 
-            {/* OR Divider */}
             <div className="relative my-6">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-gray-700" />
@@ -353,10 +374,8 @@ const Register = () => {
               </div>
             </div>
 
-            {/* Google Login */}
-            <GoogleLogin />
+            <GoogleLogin onClick={handleGoogleLogin} />
 
-            {/* Login Link */}
             <p className="mt-6 text-center text-sm text-gray-400">
               Already have an account?{" "}
               <Link
