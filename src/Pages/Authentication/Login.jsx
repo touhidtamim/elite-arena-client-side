@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import GoogleLogin from "./GoogleLogin";
@@ -12,9 +12,14 @@ const Login = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
 
+  const [loading, setLoading] = useState(false);
+
   // Email/Password Login Handler
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (loading) return;
+
     const email = emailRef.current.value;
     const password = passwordRef.current.value;
 
@@ -26,6 +31,8 @@ const Login = () => {
       });
     }
 
+    setLoading(true);
+
     signInUser(email, password)
       .then((result) => {
         Swal.fire({
@@ -35,9 +42,11 @@ const Login = () => {
           timer: 1500,
           showConfirmButton: false,
         });
+        setLoading(false);
         navigate("/");
       })
       .catch((error) => {
+        setLoading(false);
         const message =
           error.code === "auth/user-not-found"
             ? "No user found with this email."
@@ -82,9 +91,6 @@ const Login = () => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
     >
-      {/* Your original layout untouched... */}
-      {/* Floating Blur, Card, Headings, etc. */}
-
       <motion.div
         className="z-10 w-full max-w-3xl"
         initial={{ y: 20, opacity: 0 }}
@@ -138,11 +144,40 @@ const Login = () => {
               <div className="md:col-span-2 flex justify-center">
                 <motion.button
                   type="submit"
-                  className="w-full max-w-md bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg shadow-lg transition duration-300"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                  className={`w-full max-w-md bg-blue-600 text-white font-semibold py-3 rounded-lg shadow-lg transition duration-300
+                    ${
+                      loading
+                        ? "cursor-not-allowed opacity-70"
+                        : "cursor-pointer hover:bg-blue-700"
+                    }`}
+                  whileHover={loading ? {} : { scale: 1.02 }}
+                  whileTap={loading ? {} : { scale: 0.98 }}
+                  disabled={loading}
                 >
-                  Sign In
+                  {loading ? (
+                    <svg
+                      className="animate-spin h-5 w-5 mx-auto text-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                      ></path>
+                    </svg>
+                  ) : (
+                    "Sign In"
+                  )}
                 </motion.button>
               </div>
             </form>
@@ -160,7 +195,7 @@ const Login = () => {
             </div>
 
             {/* Google Login */}
-            <GoogleLogin />
+            <GoogleLogin onClick={handleGoogleLogin} />
 
             {/* Sign Up Link */}
             <p className="mt-6 text-center text-sm text-gray-400">

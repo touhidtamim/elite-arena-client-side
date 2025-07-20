@@ -18,6 +18,7 @@ const Register = () => {
     previewImage: "",
   });
   const [passwordError, setPasswordError] = useState("");
+  const [loading, setLoading] = useState(false); // <-- added loading state
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -65,6 +66,8 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (loading) return; // prevent multiple submits
+
     if (!validatePassword(formData.password)) {
       return Swal.fire({
         icon: "error",
@@ -90,6 +93,8 @@ const Register = () => {
       });
     }
 
+    setLoading(true); // <-- start loading
+
     let uploadedImageURL = null;
 
     if (formData.profileImage) {
@@ -114,6 +119,7 @@ const Register = () => {
           throw new Error("Image upload failed");
         }
       } catch (err) {
+        setLoading(false);
         return Swal.fire({
           icon: "error",
           title: "Image Upload Failed",
@@ -136,9 +142,11 @@ const Register = () => {
               timer: 1500,
               showConfirmButton: false,
             });
+            setLoading(false);
             navigate("/");
           })
           .catch((err) => {
+            setLoading(false);
             Swal.fire({
               icon: "error",
               title: "Profile Update Failed",
@@ -147,6 +155,7 @@ const Register = () => {
           });
       })
       .catch((error) => {
+        setLoading(false);
         let message;
         switch (error.code) {
           case "auth/email-already-in-use":
@@ -350,15 +359,44 @@ const Register = () => {
               <div className="md:col-span-2 flex justify-center">
                 <motion.button
                   type="submit"
-                  className="w-full max-w-md bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg shadow-lg transition duration-300"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
+                  className={`w-full max-w-md bg-blue-600 text-white font-semibold py-3 rounded-lg shadow-lg transition duration-300
+                  ${
+                    loading
+                      ? "cursor-not-allowed opacity-70"
+                      : "cursor-pointer hover:bg-blue-700"
+                  }`}
+                  whileHover={loading ? {} : { scale: 1.02 }}
+                  whileTap={loading ? {} : { scale: 0.98 }}
                   disabled={
+                    loading ||
                     passwordError ||
                     formData.password !== formData.confirmPassword
                   }
                 >
-                  Create Account
+                  {loading ? (
+                    <svg
+                      className="animate-spin h-5 w-5 mx-auto text-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                      ></path>
+                    </svg>
+                  ) : (
+                    "Create Account"
+                  )}
                 </motion.button>
               </div>
             </form>
