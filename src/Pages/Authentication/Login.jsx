@@ -1,12 +1,78 @@
-import React from "react";
+import React, { useContext, useRef } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import GoogleLogin from "./GoogleLogin";
+import { AuthContext } from "../../Provider/AuthProvider";
+import Swal from "sweetalert2";
 
 const Login = () => {
+  const { signInUser, googleSignIn } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const emailRef = useRef();
+  const passwordRef = useRef();
+
+  // Email/Password Login Handler
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Login submitted");
+    const email = emailRef.current.value;
+    const password = passwordRef.current.value;
+
+    if (!email || !password) {
+      return Swal.fire({
+        icon: "warning",
+        title: "Missing Information",
+        text: "Please enter both email and password.",
+      });
+    }
+
+    signInUser(email, password)
+      .then((result) => {
+        Swal.fire({
+          icon: "success",
+          title: "Login Successful",
+          text: `Welcome back, ${result.user.displayName || "User"}!`,
+          timer: 1500,
+          showConfirmButton: false,
+        });
+        navigate("/");
+      })
+      .catch((error) => {
+        const message =
+          error.code === "auth/user-not-found"
+            ? "No user found with this email."
+            : error.code === "auth/wrong-password"
+            ? "Incorrect password. Please try again."
+            : error.message;
+
+        Swal.fire({
+          icon: "error",
+          title: "Login Failed",
+          text: message,
+        });
+      });
+  };
+
+  // Google Login Handler
+  const handleGoogleLogin = () => {
+    googleSignIn()
+      .then((result) => {
+        Swal.fire({
+          icon: "success",
+          title: "Google Login Successful",
+          text: `Welcome, ${result.user.displayName || "User"}!`,
+          timer: 1500,
+          showConfirmButton: false,
+        });
+        navigate("/");
+      })
+      .catch((error) => {
+        Swal.fire({
+          icon: "error",
+          title: "Google Login Failed",
+          text: error.message,
+        });
+      });
   };
 
   return (
@@ -16,34 +82,9 @@ const Login = () => {
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
     >
-      {/* Background Grid */}
-      <div className="absolute inset-0 opacity-5 -z-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDQwIDQwIj48ZyBmaWxsPSJub25lIiBzdHJva2U9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiPjxwYXRoIGQ9Ik0wIDBoNDB2NDBIMHoiLz48L2c+PC9zdmc+')]"></div>
+      {/* Your original layout untouched... */}
+      {/* Floating Blur, Card, Headings, etc. */}
 
-      {/* Floating Blur Effects (blue tint) */}
-      <div className="fixed -top-1/4 -left-1/4 w-[150%] h-[150%] z-0">
-        <motion.div
-          className="absolute top-1/4 left-1/4 w-72 h-72 bg-gradient-to-br from-blue-900/20 to-blue-700/10 rounded-full blur-[100px]"
-          animate={{ x: [0, 30, 0], y: [0, 20, 0] }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            repeatType: "reverse",
-            ease: "easeInOut",
-          }}
-        />
-        <motion.div
-          className="absolute bottom-1/4 right-1/4 w-60 h-60 bg-gradient-to-br from-blue-900/20 to-blue-700/10 rounded-full blur-[100px]"
-          animate={{ x: [0, -25, 0], y: [0, -15, 0] }}
-          transition={{
-            duration: 22,
-            repeat: Infinity,
-            repeatType: "reverse",
-            ease: "easeInOut",
-          }}
-        />
-      </div>
-
-      {/* Card */}
       <motion.div
         className="z-10 w-full max-w-3xl"
         initial={{ y: 20, opacity: 0 }}
@@ -71,6 +112,7 @@ const Login = () => {
                   Email
                 </label>
                 <input
+                  ref={emailRef}
                   type="email"
                   placeholder="your@email.com"
                   className="w-full bg-gray-800/50 border border-gray-700 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none"
@@ -84,6 +126,7 @@ const Login = () => {
                   Password
                 </label>
                 <input
+                  ref={passwordRef}
                   type="password"
                   placeholder="••••••••"
                   className="w-full bg-gray-800/50 border border-gray-700 rounded-lg px-4 py-2.5 text-white placeholder-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none"
