@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { motion } from "framer-motion";
 import { AuthContext } from "../../Provider/AuthProvider";
@@ -9,7 +9,10 @@ const GoogleLogin = () => {
   const { googleSignIn } = useContext(AuthContext);
   const navigate = useNavigate();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleGoogleLogin = () => {
+    setIsLoading(true);
     googleSignIn()
       .then((result) => {
         const loggedUser = result.user;
@@ -21,7 +24,7 @@ const GoogleLogin = () => {
           confirmButtonColor: "#3085d6",
         });
 
-        navigate("/"); // Change this path if you want to redirect elsewhere
+        navigate("/");
       })
       .catch((error) => {
         Swal.fire({
@@ -30,18 +33,30 @@ const GoogleLogin = () => {
           icon: "error",
           confirmButtonColor: "#d33",
         });
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
   return (
     <motion.button
       onClick={handleGoogleLogin}
-      className="w-full flex items-center justify-center gap-3 bg-gray-800 hover:bg-gray-700 border border-gray-700 text-gray-300 py-3 px-4 rounded-lg transition-all duration-200"
-      whileHover={{ y: -2 }}
+      className={`w-full flex items-center justify-center gap-3 border rounded-lg py-3 px-4 transition-all duration-200
+        ${
+          isLoading
+            ? "bg-gray-600 border-gray-600 cursor-not-allowed text-gray-400"
+            : "bg-gray-800 hover:bg-gray-700 border-gray-700 text-gray-300 cursor-pointer"
+        }
+      `}
+      whileHover={isLoading ? {} : { y: -2 }}
       type="button"
+      disabled={isLoading}
     >
       <FcGoogle className="text-xl" />
-      <span className="text-sm font-medium">Continue with Google</span>
+      <span className="text-sm font-medium">
+        {isLoading ? "Logging in..." : "Continue with Google"}
+      </span>
     </motion.button>
   );
 };
