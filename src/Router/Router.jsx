@@ -11,6 +11,8 @@ import Login from "../Pages/Authentication/Login";
 import Register from "../Pages/Authentication/Register";
 import PrivateRouter from "./PrivateRouter";
 import Dashborad from "../Pages/Dashboard/Dashborad";
+import PrivacyPolicy from "../Components/Legal/PrivacyPolicy";
+import TermsAndConditions from "../Components/Legal/TermsAndConditions";
 
 const Router = createBrowserRouter([
   {
@@ -30,6 +32,8 @@ const Router = createBrowserRouter([
       },
 
       { path: "/events", element: <Events /> },
+      { path: "/privacy-policy", element: <PrivacyPolicy /> },
+      { path: "/terms-and-conditions", element: <TermsAndConditions /> },
 
       { path: "/gallery", element: <Gallery /> },
 

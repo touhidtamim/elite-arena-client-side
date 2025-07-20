@@ -4,43 +4,50 @@ const sports = [
   {
     name: "Football",
     icon: "⚽",
-    image: "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e",
+    image:
+      "https://i.postimg.cc/vZfWKKBG/photo-1579952363873-27f3bade9f55-w-600-auto-format-fit-crop-q-60-ixlib-rb-4-1.jpg",
     gradient: "from-green-500 to-green-700",
   },
   {
     name: "Basketball",
     icon: "🏀",
-    image: "https://images.unsplash.com/photo-1546519638-68e109498ffc",
+    image:
+      "https://i.postimg.cc/FKx0rJ3q/photo-1546519638-68e109498ffc-q-80-w-1190-auto-format-fit-crop-ixlib-rb-4-1.jpg",
     gradient: "from-orange-500 to-orange-700",
   },
   {
     name: "Tennis",
     icon: "🎾",
-    image: "https://images.unsplash.com/photo-1549060279-7e168fcee0c2",
+    image:
+      "https://i.postimg.cc/nzcBCc1L/premium-photo-1666913667082-c1fecc45275d-w-600-auto-format-fit-crop-q-60-ixlib-rb-4-1.jpg",
     gradient: "from-yellow-400 to-yellow-600",
   },
   {
     name: "Swimming",
     icon: "🏊",
-    image: "https://images.unsplash.com/photo-1438029071396-1e831a7fa6d5",
+    image:
+      "https://i.postimg.cc/90D9Y8K5/photo-1530549387789-4c1017266635-q-80-w-1170-auto-format-fit-crop-ixlib-rb-4-1.jpg",
     gradient: "from-blue-400 to-blue-600",
   },
   {
     name: "Cricket",
     icon: "🏏",
-    image: "https://images.unsplash.com/photo-1531415074968-036ba1b575da",
+    image:
+      "https://i.postimg.cc/N0QrzfSx/photo-1624897174291-1bd715e371d5-w-600-auto-format-fit-crop-q-60-ixlib-rb-4-1.jpg",
     gradient: "from-red-500 to-red-700",
   },
   {
     name: "Badminton",
     icon: "🏸",
-    image: "https://images.unsplash.com/photo-1594381898411-846e7d193883",
+    image:
+      "https://i.postimg.cc/8PrWFYLL/photo-1708312604109-16c0be9326cd-w-600-auto-format-fit-crop-q-60-ixlib-rb-4-1.jpg",
     gradient: "from-purple-500 to-purple-700",
   },
   {
     name: "Table Tennis",
     icon: "🏓",
-    image: "https://images.unsplash.com/photo-1519865885898-a54a6f2c7eea",
+    image:
+      "https://i.postimg.cc/Gpzswn1n/premium-photo-1666913667023-4bfd0f6cff0a-w-600-auto-format-fit-crop-q-60-ixlib-rb-4-1.jpg",
     gradient: "from-pink-500 to-pink-700",
   },
   {

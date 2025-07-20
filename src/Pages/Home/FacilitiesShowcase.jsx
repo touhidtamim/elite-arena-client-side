@@ -2,7 +2,7 @@ const SignatureFacilities = () => {
   const facilities = [
     {
       name: "Olympic Swimming Pavilion",
-      image: "https://images.unsplash.com/photo-1551641506-ee5bf4cb45f1",
+      image: "https://i.ibb.co/C31LDsZb/lhu-shi-hui-YWk-RJjctjb-A-unsplash.jpg",
       specs: [
         "50m Competition Pool",
         "Underwater Camera System",
@@ -11,7 +11,7 @@ const SignatureFacilities = () => {
     },
     {
       name: "Grand Tennis Atrium",
-      image: "https://images.unsplash.com/photo-1549060279-7e168fcee0c2",
+      image: "https://i.ibb.co/3mKXSq0B/pranai-shah-hmub-Aaw-2as-unsplash.jpg",
       specs: ["French Clay Courts", "Hawkeye Technology", "Player Lounge"],
     },
   ];

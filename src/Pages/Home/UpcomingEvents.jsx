@@ -3,18 +3,20 @@ import { motion } from "framer-motion";
 const events = [
   {
     title: "Summer Football League",
-    date: "Jun 15 - Aug 20",
+    date: "Aug 15 - Aug 20",
     image: "https://images.unsplash.com/photo-1574629810360-7efbbe195018",
   },
   {
     title: "Elite Tennis Open",
-    date: "Jul 5-10",
-    image: "https://images.unsplash.com/photo-1549060279-7e168fcee0c2",
+    date: "Nov 5-10",
+    image:
+      "https://i.postimg.cc/jd895LQD/premium-photo-1733342490554-4bcb4c60631e-q-80-w-1170-auto-format-fit-crop-ixlib-rb-4-1.jpg",
   },
   {
     title: "Swimming Championship",
-    date: "Aug 12-15",
-    image: "https://images.unsplash.com/photo-1438029071396-1e831a7fa6d5",
+    date: "Dec 12-15",
+    image:
+      "https://i.postimg.cc/nrFRVJXK/photo-1691272472455-885135750a94-q-80-w-1087-auto-format-fit-crop-ixlib-rb-4-1.jpg",
   },
 ];
 

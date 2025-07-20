@@ -6,13 +6,12 @@ const slides = [
   {
     id: 1,
     title: "Elite Championship Training",
-    subtitle: "2024 Season Registration",
-    description:
-      "Train with Olympic medal-winning coaches in our world-class facility",
+    subtitle: "2026 Season Registration",
+    description: "Train like the pros with national-level cricket coaches",
     image:
       "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
     cta: "Join Now",
-    link: "/championship-program",
+    link: "/membership",
   },
   {
     id: 2,
@@ -23,17 +22,17 @@ const slides = [
     image:
       "https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
     cta: "Discover More",
-    link: "/next-gen",
+    link: "/membership",
   },
   {
     id: 3,
     title: "Elite Performance Center",
     subtitle: "Now Open",
-    description: "India's most advanced sports science facility",
+    description: "Bangladesh's most advanced sports science facility",
     image:
       "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
     cta: "Book Tour",
-    link: "/facility-tour",
+    link: "/courts",
   },
   {
     id: 4,
@@ -43,17 +42,17 @@ const slides = [
     image:
       "https://images.unsplash.com/photo-1471295253337-3ceaaedca402?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
     cta: "Reserve Spot",
-    link: "/summer-camp",
+    link: "/courts",
   },
   {
     id: 5,
     title: "Pro Athlete Combine",
-    subtitle: "October 2024",
+    subtitle: "October 2026",
     description: "Showcase your skills for national team scouts",
     image:
       "https://images.unsplash.com/photo-1517649763962-0c623066013b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
     cta: "Register Now",
-    link: "/combine",
+    link: "/membership",
   },
 ];
 
