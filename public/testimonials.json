@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "name": "Asif Rahman",
+    "role": "National Football Player",
+    "sport": "⚽ Football",
+    "quote": "The training facilities at Elite Arena helped me improve my performance by 22% in just 3 months. The equipment and coaching are world-class.",
+    "image": "https://randomuser.me/api/portraits/men/32.jpg",
+    "rating": 5
+  },
+  {
+    "id": 2,
+    "name": "Tasnim Ahmed",
+    "role": "Olympic Swimmer",
+    "sport": "🏊 Swimming",
+    "quote": "The hydrotherapy recovery pools helped me shave 1.8 seconds off my 200m time. This facility rivals anything I've seen internationally.",
+    "image": "https://randomuser.me/api/portraits/women/44.jpg",
+    "rating": 5
+  },
+  {
+    "id": 3,
+    "name": "Rafiq Islam",
+    "role": "Celebrity Fitness Coach",
+    "sport": "💪 Personal Training",
+    "quote": "My clients achieve better results here than anywhere else. The variety of equipment and training spaces is unparalleled in Bangladesh.",
+    "image": "https://randomuser.me/api/portraits/men/75.jpg",
+    "rating": 4
+  }
+]

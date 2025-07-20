@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "Nike",
+    "logo": "/brand-logos/nike.svg",
+    "type": "Official Apparel Partner"
+  },
+  {
+    "id": 2,
+    "name": "Gatorade",
+    "logo": "/brand-logos/gatorade.svg",
+    "type": "Sports Nutrition Partner"
+  },
+  {
+    "id": 3,
+    "name": "Technogym",
+    "logo": "/brand-logos/technogym.svg",
+    "type": "Equipment Technology Partner"
+  },
+  {
+    "id": 4,
+    "name": "Red Bull",
+    "logo": "/brand-logos/redbull.svg",
+    "type": "Energy Drink Partner"
+  },
+  {
+    "id": 5,
+    "name": "Asics",
+    "logo": "/brand-logos/asics.svg",
+    "type": "Footwear Partner"
+  }
+]

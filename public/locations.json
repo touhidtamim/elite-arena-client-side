@@ -1,0 +1,162 @@
+[
+  {
+    "city": "Dhaka",
+    "locations": [
+      {
+        "branch": "Banani Elite Arena",
+        "address": "House 25, Road 10, Block E, Banani, Dhaka 1213",
+        "map": "https://maps.google.com/?q=23.7938,90.4145"
+      },
+      {
+        "branch": "Dhanmondi Elite Arena",
+        "address": "House 15, Road 27, Dhanmondi, Dhaka 1209",
+        "map": "https://maps.google.com/?q=23.7461,90.3702"
+      },
+      {
+        "branch": "Gulshan Elite Arena",
+        "address": "Plot 6, Road 104, Gulshan 2, Dhaka 1212",
+        "map": "https://maps.google.com/?q=23.7930,90.4160"
+      },
+      {
+        "branch": "Mirpur Elite Arena",
+        "address": "Plot 11, Section 10, Mirpur, Dhaka 1216",
+        "map": "https://maps.google.com/?q=23.8143,90.3579"
+      }
+    ]
+  },
+  {
+    "city": "Chittagong",
+    "locations": [
+      {
+        "branch": "Agrabad Elite Arena",
+        "address": "Road 12, Agrabad Commercial Area, Chittagong 4100",
+        "map": "https://maps.google.com/?q=22.3345,91.8133"
+      },
+      {
+        "branch": "Nasirabad Elite Arena",
+        "address": "Plot 3, Zakir Hossain Road, Nasirabad, Chittagong",
+        "map": "https://maps.google.com/?q=22.3510,91.8284"
+      },
+      {
+        "branch": "GEC Circle Elite Arena",
+        "address": "House 7, GEC Circle, Chittagong 4200",
+        "map": "https://maps.google.com/?q=22.3475,91.8312"
+      }
+    ]
+  },
+  {
+    "city": "Rajshahi",
+    "locations": [
+      {
+        "branch": "Shaheb Bazar Elite Arena",
+        "address": "Ward 8, Shaheb Bazar, Rajshahi 6000",
+        "map": "https://maps.google.com/?q=24.3710,88.6010"
+      },
+      {
+        "branch": "Kazla Elite Arena",
+        "address": "University Rd, Kazla, Rajshahi 6204",
+        "map": "https://maps.google.com/?q=24.3688,88.6283"
+      }
+    ]
+  },
+  {
+    "city": "Sylhet",
+    "locations": [
+      {
+        "branch": "Zindabazar Elite Arena",
+        "address": "Main Rd, Zindabazar, Sylhet 3100",
+        "map": "https://maps.google.com/?q=24.8978,91.8717"
+      },
+      {
+        "branch": "Amberkhana Elite Arena",
+        "address": "Amberkhana Point, Sylhet 3100",
+        "map": "https://maps.google.com/?q=24.8943,91.8765"
+      },
+      {
+        "branch": "Shibgonj Elite Arena",
+        "address": "Shibgonj Rd, Sylhet 3100",
+        "map": "https://maps.google.com/?q=24.8925,91.8698"
+      }
+    ]
+  },
+  {
+    "city": "Khulna",
+    "locations": [
+      {
+        "branch": "Sonadanga Elite Arena",
+        "address": "Sonadanga New Market Area, Khulna 9100",
+        "map": "https://maps.google.com/?q=22.8333,89.5600"
+      },
+      {
+        "branch": "Shibbari Elite Arena",
+        "address": "Shibbari More, Khulna 9100",
+        "map": "https://maps.google.com/?q=22.8167,89.5650"
+      },
+      {
+        "branch": "Boyra Elite Arena",
+        "address": "Boyra Bazar Rd, Khulna 9100",
+        "map": "https://maps.google.com/?q=22.8250,89.5700"
+      }
+    ]
+  },
+  {
+    "city": "Barishal",
+    "locations": [
+      {
+        "branch": "Band Road Elite Arena",
+        "address": "Band Road, Barishal Sadar, Barishal 8200",
+        "map": "https://maps.google.com/?q=22.7010,90.3675"
+      },
+      {
+        "branch": "C&B Road Elite Arena",
+        "address": "C&B Rd, Nathullabad, Barishal",
+        "map": "https://maps.google.com/?q=22.6950,90.3690"
+      }
+    ]
+  },
+  {
+    "city": "Rangpur",
+    "locations": [
+      {
+        "branch": "Jahaj Company More Elite Arena",
+        "address": "Station Road, Jahaj Company, Rangpur 5400",
+        "map": "https://maps.google.com/?q=25.7449,89.2755"
+      },
+      {
+        "branch": "Medical More Elite Arena",
+        "address": "Medical Road, Rangpur 5400",
+        "map": "https://maps.google.com/?q=25.7495,89.2700"
+      }
+    ]
+  },
+  {
+    "city": "Comilla",
+    "locations": [
+      {
+        "branch": "Kandirpar Elite Arena",
+        "address": "Holding 12, Kandirpar, Comilla 3500",
+        "map": "https://maps.google.com/?q=23.4689,91.1801"
+      },
+      {
+        "branch": "Tomcham Bridge Elite Arena",
+        "address": "Tomcham Bridge Rd, Comilla",
+        "map": "https://maps.google.com/?q=23.4680,91.1775"
+      }
+    ]
+  },
+  {
+    "city": "Mymensingh",
+    "locations": [
+      {
+        "branch": "Town Hall Elite Arena",
+        "address": "Station Rd, Town Hall Area, Mymensingh",
+        "map": "https://maps.google.com/?q=24.7471,90.3773"
+      },
+      {
+        "branch": "KR Market Elite Arena",
+        "address": "KR Market Area, Mymensingh 2200",
+        "map": "https://maps.google.com/?q=24.7450,90.3750"
+      }
+    ]
+  }
+]

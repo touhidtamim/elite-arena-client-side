@@ -7,6 +7,7 @@ import Testimonials from "./Testimonials";
 import EliteExperience from "./HeroShowcase";
 import SignatureFacilities from "./FacilitiesShowcase";
 import WhyEliteArena from "./WhyEliteArena";
+import Location from "./Location";
 
 const Home = () => {
   return (
@@ -15,6 +16,7 @@ const Home = () => {
       <WhyEliteArena />
       <FeaturedSports />
       <UpcomingEvents />
+      <Location />
       <MembershipBenefits />
       <SignatureFacilities />
       <EliteExperience />
