@@ -420,7 +420,7 @@ const Register = () => {
                 to="/login"
                 className="text-blue-400 hover:text-blue-300 font-medium"
               >
-                Sign in
+                Login
               </Link>
             </p>
           </div>

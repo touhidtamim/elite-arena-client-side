@@ -9,6 +9,8 @@ import Membership from "../Pages/Membership/Membership";
 import About from "../Pages/About/About";
 import Login from "../Pages/Authentication/Login";
 import Register from "../Pages/Authentication/Register";
+import PrivateRouter from "./PrivateRouter";
+import Dashborad from "../Pages/Dashboard/Dashborad";
 
 const Router = createBrowserRouter([
   {
@@ -18,7 +20,14 @@ const Router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
 
-      { path: "/courts", element: <Courts /> },
+      {
+        path: "/courts",
+        element: <Courts />,
+      },
+      {
+        path: "/dashboard",
+        element: <Dashborad />,
+      },
 
       { path: "/events", element: <Events /> },
 

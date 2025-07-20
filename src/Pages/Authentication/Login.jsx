@@ -86,7 +86,7 @@ const Login = () => {
 
   return (
     <motion.div
-      className="min-h-screen flex items-center justify-center bg-gray-950 p-4 relative overflow-hidden"
+      className="min-h-screen pt-20 flex items-center justify-center bg-gray-950 p-4 relative overflow-hidden"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
@@ -204,7 +204,7 @@ const Login = () => {
                 to="/register"
                 className="text-blue-400 hover:text-blue-300 font-medium"
               >
-                Sign up
+                Register
               </Link>
             </p>
           </div>
