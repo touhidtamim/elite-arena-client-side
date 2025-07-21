@@ -1,5 +1,5 @@
 import CourtHero from "./CourtHero";
-import AllCourts from "./AllCourts";
+import AllCourts from "./AllCourts/AllCourts";
 import CourtTestimonials from "./CourtTestimonials";
 import CourtFacilities from "./CourtFacilities";
 
