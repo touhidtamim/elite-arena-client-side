@@ -30,7 +30,7 @@ const SignatureFacilities = () => {
           <div className="w-32 h-px bg-yellow-400 mx-auto" />
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12">
+        <div className="grid lg:grid-cols-2 gap-12">
           {facilities.map((facility, i) => (
             <div key={i} className="group relative overflow-hidden">
               <div className="relative h-[500px] overflow-hidden">

@@ -88,7 +88,7 @@ const WhyEliteArena = () => {
         </motion.div>
 
         {/* Value Proposition Cards */}
-        <div className="grid md:grid-cols-3 gap-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
           {valueProps.map((prop, index) => (
             <motion.div
               key={index}
@@ -128,7 +128,7 @@ const WhyEliteArena = () => {
           whileInView={{ opacity: 1 }}
           transition={{ delay: 0.4 }}
           viewport={{ once: true }}
-          className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6"
+          className="mt-20 grid grid-cols-2 lg:grid-cols-4 gap-6"
         >
           {[
             { number: "12K+", label: "Members" },

@@ -7,9 +7,9 @@ const Footer = () => {
     <footer className="bg-gray-900 text-white pt-16 pb-8 px-4 border-t border-gray-800">
       <div className="max-w-7xl mx-auto">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
           {/* Brand Column */}
-          <div className="md:col-span-1">
+          <div className="lg:col-span-1">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -34,7 +34,9 @@ const Footer = () => {
               className="flex space-x-4"
             >
               <a
-                href="#"
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-400 hover:text-yellow-400 transition-colors"
               >
                 <svg
@@ -46,7 +48,9 @@ const Footer = () => {
                 </svg>
               </a>
               <a
-                href="#"
+                href="https://twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-400 hover:text-yellow-400 transition-colors"
               >
                 <svg
@@ -58,7 +62,9 @@ const Footer = () => {
                 </svg>
               </a>
               <a
-                href="#"
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-400 hover:text-yellow-400 transition-colors"
               >
                 <svg
@@ -70,7 +76,9 @@ const Footer = () => {
                 </svg>
               </a>
               <a
-                href="#"
+                href="https://youtube.com"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-gray-400 hover:text-yellow-400 transition-colors"
               >
                 <svg
@@ -111,7 +119,6 @@ const Footer = () => {
                   Events
                 </Link>
               </li>
-
               <li>
                 <Link
                   to="/gallery"
