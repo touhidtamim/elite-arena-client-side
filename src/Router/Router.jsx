@@ -17,7 +17,13 @@ import PrivacyPolicy from "../Components/Legal/PrivacyPolicy";
 import TermsAndConditions from "../Components/Legal/TermsAndConditions";
 
 import PrivateRouter from "./PrivateRouter";
+
+// Dashboard pages
 import DashboardProfile from "../Pages/Dashboard/DashboardProfile";
+import AddCourtPage from "../Pages/Dashboard/Admin/AddCourtPage";
+// import DashboardManageCourts from "../Pages/Dashboard/Courts/ManageCourts";
+// import DashboardBookings from "../Pages/Dashboard/Bookings/Bookings";
+// import DashboardMembers from "../Pages/Dashboard/Members/Members";
 
 const Router = createBrowserRouter([
   {
@@ -46,10 +52,11 @@ const Router = createBrowserRouter([
     ),
     errorElement: <NotFound />,
     children: [
-      {
-        path: "profile",
-        element: <DashboardProfile />,
-      },
+      { path: "profile", element: <DashboardProfile /> },
+      { path: "courts/add", element: <AddCourtPage /> },
+      // { path: "courts", element: <DashboardManageCourts /> },
+      // { path: "bookings", element: <DashboardBookings /> },
+      // { path: "members", element: <DashboardMembers /> },
     ],
   },
 ]);

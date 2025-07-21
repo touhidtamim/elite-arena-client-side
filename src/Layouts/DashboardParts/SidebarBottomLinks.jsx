@@ -42,14 +42,15 @@ const SidebarBottomLinks = () => {
   };
 
   return (
-    <div className="mb-4 px-4 space-y-1">
+    <div className="mb-4 px-4 space-y-1 border-t border-gray-700 pt-2">
       <NavLink
         to="/dashboard/profile"
+        end
         className={({ isActive }) =>
-          `flex items-center gap-2 px-4 py-2 rounded-md ${
+          `flex items-center gap-2 px-4 py-2 rounded-md transition ${
             isActive
               ? "bg-gray-800 text-white"
-              : "text-gray-400 hover:text-white"
+              : "text-gray-400 hover:text-white hover:bg-gray-700"
           }`
         }
       >

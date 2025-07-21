@@ -1,117 +1,90 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { motion } from "framer-motion";
 import { AuthContext } from "../../Provider/AuthProvider";
+import api from "../../api/axiosInstance";
 
 const AllCourts = () => {
   const { currentUser } = useContext(AuthContext);
+  const [courts, setCourts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [selectedCourt, setSelectedCourt] = useState(null);
-  const [selectedSlots, setSelectedSlots] = useState([]);
   const [bookingDate, setBookingDate] = useState("");
   const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
 
-  // Sample static data - will be replaced with database data later
-  const courts = [
-    {
-      id: 1,
-      name: "Tennis Court 1",
-      type: "Tennis",
-      image: "https://images.unsplash.com/photo-1547347298-4074fc3086f0",
-      slots: [
-        { time: "06:00-08:00", price: 1500 },
-        { time: "08:00-10:00", price: 1800 },
-        { time: "10:00-12:00", price: 2000 },
-        { time: "14:00-16:00", price: 2000 },
-        { time: "16:00-18:00", price: 2200 },
-        { time: "18:00-20:00", price: 2500 },
-      ],
-      description: "Professional-grade tennis court with floodlights",
-    },
-    {
-      id: 2,
-      name: "Badminton Court A",
-      type: "Badminton",
-      image: "https://images.unsplash.com/photo-1544465544-1b71aee9dfa3",
-      slots: [
-        { time: "07:00-09:00", price: 800 },
-        { time: "09:00-11:00", price: 1000 },
-        { time: "11:00-13:00", price: 1000 },
-        { time: "15:00-17:00", price: 1200 },
-        { time: "17:00-19:00", price: 1500 },
-      ],
-      description: "Olympic-standard badminton court with wooden flooring",
-    },
-    {
-      id: 3,
-      name: "Squash Court Premier",
-      type: "Squash",
-      image: "https://images.unsplash.com/photo-1519766304817-4f37bda74a26",
-      slots: [
-        { time: "08:00-09:00", price: 600 },
-        { time: "09:00-10:00", price: 600 },
-        { time: "10:00-11:00", price: 600 },
-        { time: "16:00-17:00", price: 800 },
-        { time: "17:00-18:00", price: 800 },
-        { time: "18:00-19:00", price: 1000 },
-      ],
-      description: "Glass-back squash court with air conditioning",
-    },
-    {
-      id: 4,
-      name: "Basketball Court",
-      type: "Basketball",
-      image: "https://images.unsplash.com/photo-1546519638-68e109498ffc",
-      slots: [
-        { time: "06:00-08:00", price: 2000 },
-        { time: "08:00-10:00", price: 2000 },
-        { time: "16:00-18:00", price: 2500 },
-        { time: "18:00-20:00", price: 3000 },
-      ],
-      description: "Full-size basketball court with NBA-standard flooring",
-    },
-  ];
+  // Fetch courts data from backend API
+  useEffect(() => {
+    const fetchCourts = async () => {
+      try {
+        const response = await api.get("/courts");
+        setCourts(response.data);
+      } catch (err) {
+        setError(err.response?.data?.error || "Failed to fetch courts");
+        console.error("Error fetching courts:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCourts();
+  }, []);
 
   const handleBookNow = (court) => {
     if (!currentUser) {
-      // Redirect to login if not authenticated
       window.location.href = "/login";
       return;
     }
     setSelectedCourt(court);
-    setSelectedSlots([]);
     setBookingDate("");
     setIsBookingModalOpen(true);
   };
 
-  const handleSlotSelection = (slot) => {
-    setSelectedSlots((prev) => {
-      if (prev.some((s) => s.time === slot.time)) {
-        return prev.filter((s) => s.time !== slot.time);
-      } else {
-        return [...prev, slot];
-      }
-    });
-  };
-
-  const calculateTotal = () => {
-    return selectedSlots.reduce((sum, slot) => sum + slot.price, 0);
-  };
-
-  const handleBookingSubmit = (e) => {
+  const handleBookingSubmit = async (e) => {
     e.preventDefault();
-    // Here you would typically send the booking request to your backend
-    console.log({
-      courtId: selectedCourt.id,
-      date: bookingDate,
-      slots: selectedSlots,
-      total: calculateTotal(),
-      userId: currentUser.uid,
-      status: "pending",
-    });
-    // Close modal after submission
-    setIsBookingModalOpen(false);
-    // Show success message
-    alert("Booking request submitted for admin approval");
+
+    if (!selectedCourt || !bookingDate) return;
+
+    try {
+      const bookingData = {
+        courtId: selectedCourt._id,
+        date: bookingDate,
+        rate: selectedCourt.rate,
+        userId: currentUser.uid,
+        status: "pending",
+      };
+
+      await api.post("/bookings", bookingData);
+      setIsBookingModalOpen(false);
+      alert("Booking request submitted for admin approval");
+    } catch (error) {
+      console.error("Booking failed:", error);
+      alert("Booking failed. Please try again.");
+    }
   };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen bg-gray-100">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-yellow-500"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex justify-center items-center h-screen bg-gray-100">
+        <div className="text-red-500 text-lg">{error}</div>
+      </div>
+    );
+  }
+
+  if (!courts || courts.length === 0) {
+    return (
+      <div className="flex justify-center items-center h-screen bg-gray-100">
+        <div className="text-gray-600 text-lg">No courts available</div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-gray-900">
@@ -133,7 +106,7 @@ const AllCourts = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {courts.map((court) => (
               <motion.div
-                key={court.id}
+                key={court._id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
@@ -156,27 +129,53 @@ const AllCourts = () => {
                       {court.type}
                     </span>
                   </div>
+
+                  <div className="flex items-center text-sm text-gray-600 mb-2">
+                    <svg
+                      className="w-4 h-4 mr-1"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    {court.location}
+                  </div>
+
+                  <div className="flex items-center text-sm text-gray-600 mb-4">
+                    <svg
+                      className="w-4 h-4 mr-1"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2h-1V9z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                    {court.availability}
+                  </div>
+
                   <p className="text-gray-600 text-sm mb-4">
                     {court.description}
                   </p>
 
-                  <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Available Slots
-                    </label>
-                    <select
-                      className="w-full border border-gray-300 text-black rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-yellow-400"
-                      defaultValue=""
-                    >
-                      <option value="" disabled>
-                        Select a time slot
-                      </option>
-                      {court.slots.map((slot, index) => (
-                        <option key={index} value={slot.time}>
-                          {slot.time} (₹{slot.price})
-                        </option>
-                      ))}
-                    </select>
+                  <div className="flex justify-between items-center mb-4">
+                    <div>
+                      <span className="text-lg font-bold text-gray-900">
+                        ₹{court.rate}
+                      </span>
+                      <span className="text-gray-500 text-sm ml-1">
+                        per hour
+                      </span>
+                    </div>
+                    <div className="text-sm text-gray-600">
+                      Capacity: {court.capacity}
+                    </div>
                   </div>
 
                   <motion.button
@@ -248,71 +247,42 @@ const AllCourts = () => {
 
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Available Slots
+                      Court Details
                     </label>
-                    <div className="space-y-2">
-                      {selectedCourt.slots.map((slot, index) => (
-                        <div
-                          key={index}
-                          className={`flex items-center justify-between p-3 border rounded-md cursor-pointer ${
-                            selectedSlots.some((s) => s.time === slot.time)
-                              ? "border-yellow-400 bg-yellow-50"
-                              : "border-gray-300 hover:border-yellow-300"
-                          }`}
-                          onClick={() => handleSlotSelection(slot)}
-                        >
-                          <div>
-                            <span className="font-medium">{slot.time}</span>
-                            <span className="text-gray-500 text-sm ml-2">
-                              (₹{slot.price})
-                            </span>
-                          </div>
-                          <input
-                            type="checkbox"
-                            checked={selectedSlots.some(
-                              (s) => s.time === slot.time
-                            )}
-                            className="h-4 w-4 text-yellow-400 focus:ring-yellow-400 border-gray-300 rounded"
-                            readOnly
-                          />
+                    <div className="bg-gray-50 p-4 rounded-md">
+                      <div className="grid grid-cols-2 gap-4">
+                        <div>
+                          <p className="text-sm text-gray-500">Type</p>
+                          <p className="font-medium">{selectedCourt.type}</p>
                         </div>
-                      ))}
+                        <div>
+                          <p className="text-sm text-gray-500">Rate</p>
+                          <p className="font-medium">
+                            ₹{selectedCourt.rate}/hour
+                          </p>
+                        </div>
+                        <div>
+                          <p className="text-sm text-gray-500">Location</p>
+                          <p className="font-medium">
+                            {selectedCourt.location}
+                          </p>
+                        </div>
+                        <div>
+                          <p className="text-sm text-gray-500">Availability</p>
+                          <p className="font-medium">
+                            {selectedCourt.availability}
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </div>
-
-                  {selectedSlots.length > 0 && (
-                    <div className="bg-gray-50 p-4 rounded-md">
-                      <div className="flex justify-between font-medium">
-                        <span>Selected Slots:</span>
-                        <span>
-                          {selectedSlots.length} slot
-                          {selectedSlots.length > 1 ? "s" : ""}
-                        </span>
-                      </div>
-                      <div className="mt-2">
-                        {selectedSlots.map((slot, index) => (
-                          <div
-                            key={index}
-                            className="flex justify-between text-sm py-1"
-                          >
-                            <span>{slot.time}</span>
-                            <span>₹{slot.price}</span>
-                          </div>
-                        ))}
-                      </div>
-                      <div className="border-t mt-2 pt-2 flex justify-between font-bold">
-                        <span>Total:</span>
-                        <span>₹{calculateTotal()}</span>
-                      </div>
-                    </div>
-                  )}
 
                   <div className="pt-4">
                     <button
                       type="submit"
-                      disabled={selectedSlots.length === 0 || !bookingDate}
+                      disabled={!bookingDate}
                       className={`w-full py-3 px-4 rounded-md font-bold ${
-                        selectedSlots.length === 0 || !bookingDate
+                        !bookingDate
                           ? "bg-gray-300 cursor-not-allowed"
                           : "bg-yellow-400 hover:bg-yellow-500"
                       } transition-all`}
