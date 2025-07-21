@@ -17,6 +17,7 @@ import PrivacyPolicy from "../Components/Legal/PrivacyPolicy";
 import TermsAndConditions from "../Components/Legal/TermsAndConditions";
 
 import PrivateRouter from "./PrivateRouter";
+import DashboardProfile from "../Pages/Dashboard/DashboardProfile";
 
 const Router = createBrowserRouter([
   {
@@ -44,6 +45,12 @@ const Router = createBrowserRouter([
       </PrivateRouter>
     ),
     errorElement: <NotFound />,
+    children: [
+      {
+        path: "profile",
+        element: <DashboardProfile />,
+      },
+    ],
   },
 ]);
 
