@@ -40,42 +40,44 @@ const CallToAction = () => {
   }, [displayedText, isDeleting, loopNum, fullText]);
 
   return (
-    <section className="py-20 px-4 bg-gradient-to-r from-yellow-400 to-yellow-500">
+    <section className="py-20 px-4 bg-white">
       <div className="max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center"
+          className="bg-gradient-to-r from-yellow-400 to-yellow-500 rounded-xl shadow-xl p-8 md:p-10"
         >
-          <h3 className="text-3xl md:text-4xl font-bold text-black mb-6 font-serif tracking-tight">
-            Join the Elite
-          </h3>
+          <div className="text-center">
+            <h3 className="text-3xl md:text-4xl font-bold text-black mb-6 font-serif tracking-tight">
+              Join the Elite
+            </h3>
 
-          <p className="text-gray-900 text-lg mb-8 max-w-xl mx-auto">
-            Begin your journey to greatness with our championship-winning
-            program
-          </p>
+            <p className="text-gray-900 text-lg mb-8 max-w-xl mx-auto">
+              Begin your journey to greatness with our championship-winning
+              program
+            </p>
 
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-block"
-          >
-            <Link
-              to="/membership"
-              className="bg-black hover:bg-gray-900 text-white font-semibold py-3 px-8 rounded-full text-lg shadow-lg transition-all"
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="inline-block"
             >
-              Enroll Now
-            </Link>
-          </motion.div>
+              <Link
+                to="/membership"
+                className="bg-black hover:bg-gray-900 text-white font-semibold py-3 px-8 rounded-full text-lg shadow-lg transition-all"
+              >
+                Enroll Now
+              </Link>
+            </motion.div>
 
-          {/* Typing effect paragraph */}
-          <p className="text-gray-700 text-sm mt-8 font-mono tracking-wide select-none  mx-auto">
-            {displayedText}
-            <span className="animate-blink">|</span>
-          </p>
+            {/* Typing effect paragraph */}
+            <p className="text-gray-700 text-sm mt-8 font-mono tracking-wide select-none mx-auto">
+              {displayedText}
+              <span className="animate-blink">|</span>
+            </p>
+          </div>
         </motion.div>
       </div>
     </section>

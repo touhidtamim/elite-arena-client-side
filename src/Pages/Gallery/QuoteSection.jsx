@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const QuoteSection = () => {
   return (
-    <section className="bg-white py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+    <section className="bg-white md:pt-20 lg:pt-0 pb-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Decorative elements */}
       <div className="absolute inset-0 opacity-5 pointer-events-none bg-gradient-to-r from-yellow-100 via-white to-yellow-100"></div>
 

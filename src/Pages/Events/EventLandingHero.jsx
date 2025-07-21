@@ -31,7 +31,7 @@ const EventLandingHero = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 font-serif tracking-tight text-white drop-shadow-xl">
+          <h1 className="text-3xl md:text-6xl font-bold mb-6 font-serif tracking-tight text-white drop-shadow-xl">
             Experience the Arena.
             <br />
             <span className="text-white">Live the Moment.</span>
@@ -47,7 +47,7 @@ const EventLandingHero = () => {
                 },
               },
             }}
-            className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto flex flex-wrap justify-center gap-x-1 text-center leading-relaxed"
+            className="text-medium md:text-xl text-gray-300 max-w-3xl mx-auto flex flex-wrap justify-center gap-x-1 text-center leading-relaxed"
           >
             {sentence.split(" ").map((word, idx) => (
               <motion.span

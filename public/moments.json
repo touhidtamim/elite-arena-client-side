@@ -1,0 +1,152 @@
+[
+  {
+    "src": "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e",
+    "caption": "National Championship 2023",
+    "category": "Victory",
+    "date": "May 15, 2023",
+    "location": "National Sports Complex",
+    "stats": "Won 3-2 | MVP: Alex Morgan | Attendance: 12,500",
+    "description": "Historic victory against our arch-rivals after 3 intense sets. The final point was scored with an incredible ace serve that left the crowd in awe.",
+    "aspect": "vertical"
+  },
+  {
+    "src": "https://images.unsplash.com/photo-1522778119026-d647f0596c20",
+    "caption": "Winter Training Intensive",
+    "category": "Training",
+    "date": "Dec 10-20, 2022",
+    "location": "Elite High-Altitude Camp",
+    "stats": "40 athletes | 8hrs daily | 0 injuries",
+    "description": "Our annual high-altitude conditioning program where athletes pushed their limits with specialized snow training routines.",
+    "aspect": "horizontal"
+  },
+  {
+    "src": "https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5",
+    "caption": "Team Bonding Retreat",
+    "category": "Team",
+    "date": "March 5-7, 2023",
+    "location": "Mountain View Resort",
+    "stats": "23 participants | 12 activities | 5 team challenges",
+    "description": "Leadership development through wilderness survival exercises and strategic games that strengthened team cohesion.",
+    "aspect": "square"
+  },
+  {
+    "src": "https://images.unsplash.com/photo-1517649763962-0c623066013b",
+    "caption": "Record Breaking Tournament",
+    "category": "Victory",
+    "date": "August 20, 2023",
+    "location": "Elite Arena Main Court",
+    "stats": "18 goals | 7 clean sheets | 5-0 final score",
+    "description": "Dominating performance that set new league records for most consecutive wins and highest scoring differential.",
+    "aspect": "vertical"
+  },
+  {
+    "src": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b",
+    "caption": "Performance Lab Inauguration",
+    "category": "Innovation",
+    "date": "Jan 10, 2023",
+    "location": "Elite Sports Science Wing",
+    "stats": "₹2.5Cr investment | 12 tech partners | 300+ data points",
+    "description": "Cutting-edge facility opening with motion capture technology and advanced biometric tracking systems.",
+    "aspect": "horizontal"
+  },
+  {
+    "src": "https://images.unsplash.com/photo-1574629810360-7efbbe195018",
+    "caption": "International Friendly",
+    "category": "Events",
+    "date": "July 7, 2023",
+    "location": "City Olympic Stadium",
+    "stats": "Drew 2-2 | 15,000 live | 1M+ online viewers",
+    "description": "Exhibition match against Olympic champions featuring spectacular aerial plays and last-minute equalizer.",
+    "aspect": "vertical"
+  },
+  {
+    "src": "https://images.unsplash.com/photo-1547347298-4074fc3086f0",
+    "caption": "Summer Championship",
+    "category": "Victory",
+    "date": "June 15, 2023",
+    "location": "Coastal Arena",
+    "stats": "5-0 final | 12 assists | 92% serve accuracy",
+    "description": "Flawless tournament performance with our new offensive strategy proving unstoppable against all opponents.",
+    "aspect": "horizontal"
+  },
+  {
+    "src": "https://images.unsplash.com/photo-1461896836934-ffe607ba8211",
+    "caption": "Season Finale Celebration",
+    "category": "Team",
+    "date": "Nov 30, 2023",
+    "location": "Elite Arena Clubhouse",
+    "stats": "3 trophies | 18 wins | 98% satisfaction",
+    "description": "Emotional farewell to our retiring captain after most successful season in club history.",
+    "aspect": "square"
+  },
+  {
+    "src": "https://images.unsplash.com/photo-1600185365483-26d7a4cc7519",
+    "caption": "Precision Training Week",
+    "category": "Training",
+    "date": "April 3-9, 2023",
+    "location": "Elite Training Complex",
+    "stats": "5000+ serves | 92% accuracy | 15% improvement",
+    "description": "Specialized serving clinic that transformed our players' second serve success rates.",
+    "aspect": "vertical"
+  },
+  {
+    "src": "https://images.unsplash.com/photo-1543357486-cf271e7f5b73",
+    "caption": "Net Play Masterclass",
+    "category": "Training",
+    "date": "Feb 18, 2023",
+    "location": "Elite Indoor Courts",
+    "stats": "8 hours | 3 coaches | 22 participants",
+    "description": "Legendary player Maria Sanchez shared her championship-winning net strategies with our team.",
+    "aspect": "horizontal"
+  },
+  {
+    "src": "https://images.unsplash.com/photo-1552674605-db6ffd4facb5",
+    "caption": "Strategic Timeout",
+    "category": "Team",
+    "date": "Sept 12, 2023",
+    "location": "Regional Finals",
+    "stats": "Timeout at 18-20 | Won 25-23 | 5 crucial points",
+    "description": "Pivotal moment when coach's adjustment led to championship-saving comeback in final set.",
+    "aspect": "square"
+  },
+  {
+    "src": "https://images.unsplash.com/photo-1571902943202-507ec2618e8f",
+    "caption": "Power Hitting Clinic",
+    "category": "Training",
+    "date": "Oct 5-8, 2023",
+    "location": "Elite Performance Center",
+    "stats": "15% power increase | 8mph speed gain | 0 injuries",
+    "description": "Biomechanics specialist helped players optimize swing mechanics for maximum power with minimal strain.",
+    "aspect": "vertical"
+  },
+  {
+    "src": "https://images.unsplash.com/photo-1471295253337-3ceaaedca402",
+    "caption": "Junior Elite Camp",
+    "category": "Development",
+    "date": "July 24-30, 2023",
+    "location": "Elite Youth Academy",
+    "stats": "42 juniors | 6 age groups | 8 future recruits",
+    "description": "Annual talent identification program that discovered our next generation of champions.",
+    "aspect": "horizontal"
+  },
+  {
+    "src": "https://images.unsplash.com/photo-1544210163-257effe9399e",
+    "caption": "Mental Toughness Workshop",
+    "category": "Training",
+    "date": "March 18, 2023",
+    "location": "Elite Meditation Dome",
+    "stats": "12 sessions | 100% participation | 22% focus improvement",
+    "description": "Sports psychologist helped players develop championship mindset through visualization techniques.",
+    "aspect": "square"
+  },
+  {
+    "src": "https://images.unsplash.com/photo-1551632811-561732d1e306",
+    "caption": "Trail Running Session",
+    "category": "Conditioning",
+    "date": "May 5, 2023",
+    "location": "Mountain Reserve",
+    "stats": "10km | 500m elevation | 2hr duration",
+    "description": "High-altitude endurance training that built unmatched cardiovascular capacity for the team.",
+    "aspect": "vertical"
+  }
+]

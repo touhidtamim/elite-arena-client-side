@@ -1,0 +1,178 @@
+[
+  {
+    "id": 1,
+    "title": "Night Football Finals",
+    "type": "Featured",
+    "date": "Sat, Jun 15 • 8:30 PM",
+    "venue": "Main Arena",
+    "image": "https://images.unsplash.com/photo-1574629810360-7efbbe195018",
+    "highlight": "Last year's champions defend their title under floodlights",
+    "status": "20 seats left",
+    "aspect": "landscape"
+  },
+  {
+    "id": 2,
+    "title": "Elite Summer Bootcamp",
+    "type": "Ongoing",
+    "date": "Daily until Jul 30",
+    "venue": "Training Grounds",
+    "image": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b",
+    "highlight": "Transform your game with pro-level conditioning",
+    "status": "Join anytime",
+    "aspect": "portrait"
+  },
+  {
+    "id": 3,
+    "title": "Community Open Day",
+    "type": "Upcoming",
+    "date": "Sun, Jul 7 • 10 AM",
+    "venue": "Entire Facility",
+    "image": "https://images.unsplash.com/photo-1544210163-257effe9399e",
+    "highlight": "Free access to all arenas - bring your family!",
+    "status": "Registration open",
+    "aspect": "square"
+  },
+  {
+    "id": 4,
+    "title": "2023 Championship Rematch",
+    "type": "Past Glory",
+    "date": "Dec 10, 2023",
+    "venue": "Center Court",
+    "image": "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e",
+    "highlight": "The game that broke all attendance records",
+    "status": "Relive highlights",
+    "aspect": "landscape"
+  },
+  {
+    "id": 5,
+    "title": "Pro Scout Showcase",
+    "type": "Upcoming",
+    "date": "Aug 3-4 • 9 AM",
+    "venue": "Show Arena",
+    "image": "https://images.unsplash.com/photo-1546519638-68e109498ffc",
+    "highlight": "10+ national scouts confirmed",
+    "status": "Early bird signup",
+    "aspect": "portrait"
+  },
+  {
+    "id": 6,
+    "title": "Midnight Basketball",
+    "type": "Featured",
+    "date": "Every Friday • 11 PM",
+    "venue": "Court 2",
+    "image": "https://images.unsplash.com/photo-1547347298-4074fc3086f0",
+    "highlight": "Where the city's best play after dark",
+    "status": "Ongoing league",
+    "aspect": "square"
+  },
+  {
+    "id": 7,
+    "title": "Women's Powerlifting Championship",
+    "type": "Featured",
+    "date": "Sep 8-10, 2025",
+    "venue": "Strength Arena",
+    "image": "https://images.unsplash.com/photo-1571019613914-85f342c56f74",
+    "highlight": "Celebrating female strength and athleticism",
+    "status": "Qualifiers ongoing",
+    "aspect": "portrait"
+  },
+  {
+    "id": 8,
+    "title": "Junior Tennis Open",
+    "type": "Upcoming",
+    "date": "Oct 15-22, 2025",
+    "venue": "Outdoor Courts",
+    "image": "https://images.unsplash.com/photo-1549060279-7e168fcee0c2",
+    "highlight": "Under-18 tournament with college scouts attending",
+    "status": "Early registration",
+    "aspect": "landscape"
+  },
+  {
+    "id": 9,
+    "title": "Yoga & Mindfulness Retreat",
+    "type": "Ongoing",
+    "date": "Every Saturday • 7 AM",
+    "venue": "Zen Garden",
+    "image": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b",
+    "highlight": "Start your weekend with peace and purpose",
+    "status": "Walk-ins welcome",
+    "aspect": "square"
+  },
+  {
+    "id": 10,
+    "title": "Elite Anniversary Gala",
+    "type": "Special",
+    "date": "Nov 20, 2025",
+    "venue": "Grand Ballroom",
+    "image": "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf",
+    "highlight": "Celebrating 5 years of sporting excellence",
+    "status": "VIP invites only",
+    "aspect": "landscape"
+  },
+  {
+    "id": 11,
+    "title": "Winter Swimming Challenge",
+    "type": "Upcoming",
+    "date": "Dec 5, 2025",
+    "venue": "Olympic Pool",
+    "image": "https://images.unsplash.com/photo-1438029071396-1e831a7fa6d5",
+    "highlight": "Test your endurance in our heated outdoor pool",
+    "status": "Registration opens Nov 1",
+    "aspect": "portrait"
+  },
+  {
+    "id": 12,
+    "title": "Boxing Masterclass",
+    "type": "Ongoing",
+    "date": "Mondays & Thursdays • 6 PM",
+    "venue": "Combat Zone",
+    "image": "https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5",
+    "highlight": "Learn from national champion coaches",
+    "status": "Members only",
+    "aspect": "square"
+  },
+  {
+    "id": 13,
+    "title": "2026 Season Kickoff",
+    "type": "Upcoming",
+    "date": "Jan 10, 2026",
+    "venue": "Main Stadium",
+    "image": "https://images.unsplash.com/photo-1517649763962-0c623066013b",
+    "highlight": "Live music, exhibitions, and season preview",
+    "status": "Free admission",
+    "aspect": "landscape"
+  },
+  {
+    "id": 14,
+    "title": "Elite Esports Tournament",
+    "type": "Featured",
+    "date": "Feb 14-16, 2026",
+    "venue": "Digital Arena",
+    "image": "https://images.unsplash.com/photo-1542751371-adc38448a05e",
+    "highlight": "₹5L prize pool across 3 gaming titles",
+    "status": "Team registrations",
+    "aspect": "portrait"
+  },
+  {
+    "id": 15,
+    "title": "Sunrise Marathon",
+    "type": "Upcoming",
+    "date": "Mar 22, 2026",
+    "venue": "City Route",
+    "image": "https://images.unsplash.com/photo-1551632811-561732d1e306",
+    "highlight": "Run through the city as it wakes up",
+    "status": "Training programs available",
+    "aspect": "landscape"
+  },
+  {
+    "id": 16,
+    "title": "Midnight Basketball",
+    "type": "Featured",
+    "date": "Every Friday • 11 PM",
+    "venue": "Court 2",
+    "image": "https://images.unsplash.com/photo-1547347298-4074fc3086f0",
+    "highlight": "Where the city's best play after dark",
+    "status": "Ongoing league",
+    "aspect": "square"
+  }
+]
