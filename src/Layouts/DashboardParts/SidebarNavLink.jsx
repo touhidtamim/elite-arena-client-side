@@ -1,13 +1,20 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { FiGrid, FiSettings, FiUser, FiPlusSquare } from "react-icons/fi";
+import {
+  FiGrid,
+  FiSettings,
+  FiUser,
+  FiPlusSquare,
+  FiClock,
+  FiEdit,
+} from "react-icons/fi";
 
 const navItems = [
   {
     name: "Dashboard",
     path: "/dashboard",
     icon: <FiGrid />,
-    exact: true, // use 'end' for this one
+    exact: true,
   },
   {
     name: "Add Court",
@@ -23,6 +30,16 @@ const navItems = [
     name: "Bookings",
     path: "/dashboard/bookings",
     icon: <FiGrid />,
+  },
+  {
+    name: "Pending Bookings",
+    path: "/dashboard/bookings/pending",
+    icon: <FiClock />,
+  },
+  {
+    name: "Manage Bookings",
+    path: "/dashboard/bookings/manage",
+    icon: <FiEdit />,
   },
   {
     name: "Members",

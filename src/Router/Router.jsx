@@ -21,6 +21,8 @@ import PrivateRouter from "./PrivateRouter";
 // Dashboard pages
 import DashboardProfile from "../Pages/Dashboard/DashboardProfile";
 import AddCourtPage from "../Pages/Dashboard/Admin/AddCourtPage";
+import PendingBookings from "../Pages/Dashboard/Shared/PendingBookings";
+import ManageBookings from "../Pages/Dashboard/Admin/ManageBookings";
 // import DashboardManageCourts from "../Pages/Dashboard/Courts/ManageCourts";
 // import DashboardBookings from "../Pages/Dashboard/Bookings/Bookings";
 // import DashboardMembers from "../Pages/Dashboard/Members/Members";
@@ -57,6 +59,8 @@ const Router = createBrowserRouter([
       // { path: "courts", element: <DashboardManageCourts /> },
       // { path: "bookings", element: <DashboardBookings /> },
       // { path: "members", element: <DashboardMembers /> },
+      { path: "bookings/pending", element: <PendingBookings /> },
+      { path: "bookings/manage", element: <ManageBookings /> },
     ],
   },
 ]);
