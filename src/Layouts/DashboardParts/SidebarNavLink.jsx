@@ -42,7 +42,7 @@ const navItems = [
     icon: <FiEdit />,
   },
   {
-    name: "Members",
+    name: "Manage Members",
     path: "/dashboard/members",
     icon: <FiUser />,
   },

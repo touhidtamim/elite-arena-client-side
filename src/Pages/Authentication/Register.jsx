@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import GoogleLogin from "./GoogleLogin";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
+import api from "../../api/axiosInstance";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ const Register = () => {
     previewImage: "",
   });
   const [passwordError, setPasswordError] = useState("");
-  const [loading, setLoading] = useState(false); // <-- added loading state
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -66,7 +67,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (loading) return; // prevent multiple submits
+    if (loading) return;
 
     if (!validatePassword(formData.password)) {
       return Swal.fire({
@@ -93,7 +94,7 @@ const Register = () => {
       });
     }
 
-    setLoading(true); // <-- start loading
+    setLoading(true);
 
     let uploadedImageURL = null;
 
@@ -129,30 +130,40 @@ const Register = () => {
     }
 
     createUser(formData.email, formData.password)
-      .then(() => {
-        updateUser({
+      .then(async () => {
+        await updateUser({
           displayName: formData.name,
           photoURL: uploadedImageURL || null,
-        })
-          .then(() => {
-            Swal.fire({
-              icon: "success",
-              title: "Registration Successful",
-              text: `Welcome, ${formData.name}!`,
-              timer: 1500,
-              showConfirmButton: false,
-            });
-            setLoading(false);
-            navigate("/");
-          })
-          .catch((err) => {
-            setLoading(false);
-            Swal.fire({
-              icon: "error",
-              title: "Profile Update Failed",
-              text: err.message,
-            });
+        });
+
+        try {
+          const userPayload = {
+            name: formData.name,
+            email: formData.email,
+            image: uploadedImageURL || null,
+          };
+          await api.put("/users", userPayload);
+        } catch (err) {
+          console.error("Backend user save error:", err);
+          Swal.fire({
+            icon: "error",
+            title: "Backend User Save Failed",
+            text: err.message || "Please try again later.",
           });
+          setLoading(false);
+          return;
+        }
+
+        Swal.fire({
+          icon: "success",
+          title: "Registration Successful",
+          text: `Welcome, ${formData.name}!`,
+          timer: 1500,
+          showConfirmButton: false,
+        });
+
+        setLoading(false);
+        navigate("/");
       })
       .catch((error) => {
         setLoading(false);
