@@ -7,6 +7,7 @@ import {
   FiPlusSquare,
   FiClock,
   FiEdit,
+  FiTag,
 } from "react-icons/fi";
 
 const navItems = [
@@ -45,6 +46,11 @@ const navItems = [
     name: "All Users",
     path: "/dashboard/users",
     icon: <FiUser />,
+  },
+  {
+    name: "Manage Coupons",
+    path: "/dashboard/coupons/manage",
+    icon: <FiTag />,
   },
 ];
 
