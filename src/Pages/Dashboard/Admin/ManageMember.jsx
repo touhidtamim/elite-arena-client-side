@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import api from "../../../api/axiosInstance"; // Adjust path if needed
+import api from "../../../api/axiosInstance";
 import { toast } from "react-toastify";
 
 const ManageMember = () => {
@@ -12,7 +12,7 @@ const ManageMember = () => {
   const fetchMembers = async () => {
     try {
       setLoading(true);
-      const res = await api.get("/users?role=member");
+      const res = await api.get("/members");
       setMembers(res.data);
       setFilteredMembers(res.data);
     } catch (error) {
@@ -23,25 +23,29 @@ const ManageMember = () => {
     }
   };
 
-  // Delete member by user ID
+  // Convert member to user
   const handleDelete = async (id) => {
     const confirm = window.confirm(
-      "Are you sure you want to delete this member?"
+      "Are you sure you want to remove this member? They will be downgraded to a regular user."
     );
     if (!confirm) return;
 
     try {
-      await api.delete(`/users/${id}`);
-      toast.success("Member deleted successfully");
-      setMembers((prev) => prev.filter((m) => m._id !== id));
-      setFilteredMembers((prev) => prev.filter((m) => m._id !== id));
+      const res = await api.patch(`/members/downgrade/${id}`);
+      if (res.data.message === "Member downgraded to user") {
+        toast.success("Member removed successfully");
+        setMembers((prev) => prev.filter((m) => m._id !== id));
+        setFilteredMembers((prev) => prev.filter((m) => m._id !== id));
+      } else {
+        toast.error("Failed to remove member");
+      }
     } catch (error) {
-      console.error("Failed to delete member:", error);
-      toast.error("Failed to delete member");
+      console.error("Error downgrading member:", error);
+      toast.error("Something went wrong");
     }
   };
 
-  // Search members by name
+  // Search members by name or email
   const handleSearch = (e) => {
     const value = e.target.value.toLowerCase();
     setSearchTerm(value);
@@ -50,9 +54,11 @@ const ManageMember = () => {
       setFilteredMembers(members);
     } else {
       setFilteredMembers(
-        members.filter((member) =>
-          (member.name || "").toLowerCase().includes(value)
-        )
+        members.filter((member) => {
+          const nameMatch = (member.name || "").toLowerCase().includes(value);
+          const emailMatch = (member.email || "").toLowerCase().includes(value);
+          return nameMatch || emailMatch;
+        })
       );
     }
   };
@@ -102,7 +108,7 @@ const ManageMember = () => {
                       onClick={() => handleDelete(member._id)}
                       className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded"
                     >
-                      Delete
+                      Remove
                     </button>
                   </td>
                 </tr>
