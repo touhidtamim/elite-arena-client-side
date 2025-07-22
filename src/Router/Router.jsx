@@ -27,6 +27,8 @@ import ManageMember from "../Pages/Dashboard/Admin/ManageMember";
 import AllUsers from "../Pages/Dashboard/Admin/AllUsers";
 import ManageCourts from "../Pages/Dashboard/Admin/ManageCourts";
 import ManageCoupons from "../Pages/Dashboard/Admin/ManageCoupons";
+import Announcements from "../Pages/Dashboard/Member/Announcements";
+import ManageAnnouncement from "../Pages/Dashboard/Admin/ManageAnnouncement";
 
 const Router = createBrowserRouter([
   {
@@ -63,6 +65,8 @@ const Router = createBrowserRouter([
       { path: "bookings/manage", element: <ManageBookings /> },
       { path: "users", element: <AllUsers /> },
       { path: "coupons/manage", element: <ManageCoupons /> },
+      { path: "announcements", element: <Announcements /> },
+      { path: "announcements/manage", element: <ManageAnnouncement /> },
     ],
   },
 ]);

@@ -9,6 +9,7 @@ import {
   FiEdit,
   FiTag,
 } from "react-icons/fi";
+import { MdCampaign, MdOutlineManageAccounts } from "react-icons/md";
 
 const navItems = [
   {
@@ -51,6 +52,16 @@ const navItems = [
     name: "Manage Coupons",
     path: "/dashboard/coupons/manage",
     icon: <FiTag />,
+  },
+  {
+    name: "Announcement",
+    path: "/dashboard/announcements",
+    icon: <MdCampaign />,
+  },
+  {
+    name: "Manage Announcement",
+    path: "/dashboard/announcements/manage",
+    icon: <MdOutlineManageAccounts />,
   },
 ];
 
