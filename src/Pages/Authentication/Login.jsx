@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import GoogleLogin from "./GoogleLogin";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
+import api from "../../api/axiosInstance";
 
 const Login = () => {
   const { signInUser, googleSignIn } = useContext(AuthContext);
@@ -13,6 +14,22 @@ const Login = () => {
   const passwordRef = useRef();
 
   const [loading, setLoading] = useState(false);
+
+  // Function to update user in backend
+  const saveUserToDB = async (user) => {
+    try {
+      const payload = {
+        email: user.email,
+        name: user.displayName || "User",
+        image: user.photoURL || null,
+      };
+      await api.put("/users", payload);
+      // No need to handle response here explicitly
+    } catch (error) {
+      console.error("Failed to save user to DB:", error);
+      // You can optionally show an error toast here if needed
+    }
+  };
 
   // Email/Password Login Handler
   const handleSubmit = (e) => {
@@ -34,7 +51,10 @@ const Login = () => {
     setLoading(true);
 
     signInUser(email, password)
-      .then((result) => {
+      .then(async (result) => {
+        // Save user info to backend
+        await saveUserToDB(result.user);
+
         Swal.fire({
           icon: "success",
           title: "Login Successful",
@@ -64,8 +84,12 @@ const Login = () => {
 
   // Google Login Handler
   const handleGoogleLogin = () => {
+    setLoading(true);
     googleSignIn()
-      .then((result) => {
+      .then(async (result) => {
+        // Save user info to backend
+        await saveUserToDB(result.user);
+
         Swal.fire({
           icon: "success",
           title: "Google Login Successful",
@@ -73,9 +97,11 @@ const Login = () => {
           timer: 1500,
           showConfirmButton: false,
         });
+        setLoading(false);
         navigate("/");
       })
       .catch((error) => {
+        setLoading(false);
         Swal.fire({
           icon: "error",
           title: "Google Login Failed",
