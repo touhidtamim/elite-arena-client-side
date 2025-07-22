@@ -2,29 +2,36 @@ import React, { useContext, useState, useRef, useEffect } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { motion } from "framer-motion";
 import Swal from "sweetalert2";
+import api from "../../api/axiosInstance";
 
 const DashboardProfile = () => {
-  const { user, updateUser, setUser } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [isEditing, setIsEditing] = useState(false);
-  const [name, setName] = useState(user?.displayName || "");
-  const [photoURL, setPhotoURL] = useState(user?.photoURL || "");
+  const [name, setName] = useState("");
+  const [photoURL, setPhotoURL] = useState("");
   const [isUploading, setIsUploading] = useState(false);
   const [lastLogin, setLastLogin] = useState(null);
+  const [role, setRole] = useState("user");
   const [showImagePreview, setShowImagePreview] = useState(false);
   const fileInputRef = useRef(null);
 
-  // Set last login time from user metadata
+  // Load user info from backend
   useEffect(() => {
-    if (user?.metadata?.lastSignInTime) {
-      setLastLogin(new Date(user.metadata.lastSignInTime));
-    }
-  }, [user]);
+    const fetchUser = async () => {
+      try {
+        const res = await api.get(`/users/${user?.email}`);
+        setName(res.data.name || "");
+        setPhotoURL(res.data.image || "");
+        setLastLogin(res.data.lastLoggedIn);
+        setRole(res.data.role || "user");
+      } catch (err) {
+        console.error("Failed to fetch user data:", err.message);
+        Swal.fire("Error", "Failed to load user profile.", "error");
+      }
+    };
 
-  // Reset form fields when user changes or cancel editing
-  useEffect(() => {
-    setName(user?.displayName || "");
-    setPhotoURL(user?.photoURL || "");
-  }, [user]);
+    if (user?.email) fetchUser();
+  }, [user?.email]);
 
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
@@ -48,67 +55,41 @@ const DashboardProfile = () => {
 
       const data = await res.json();
       if (data.success) {
-        // Set the preview URL only, do NOT save to Firebase yet
         setPhotoURL(data.data.url);
-        Swal.fire({
-          icon: "success",
-          title: "Image Uploaded!",
-          text: "Preview updated, please click Save to apply changes.",
-          timer: 2000,
-          showConfirmButton: false,
-        });
+        Swal.fire("Success", "Preview updated. Save to apply.", "success");
       } else {
         throw new Error("Image upload failed");
       }
     } catch (err) {
-      Swal.fire({
-        icon: "error",
-        title: "Upload Failed",
-        text: err.message,
-      });
+      Swal.fire("Error", err.message, "error");
     } finally {
       setIsUploading(false);
     }
   };
 
   const handleSave = async () => {
+    setIsUploading(true);
     try {
-      // Disable save button while updating
-      setIsUploading(true);
-
-      await updateUser({
-        displayName: name,
-        photoURL: photoURL,
+      const res = await api.patch(`/users/${user?.email}`, {
+        name,
+        image: photoURL,
       });
 
-      // After updating, refresh user from Firebase auth current user
-      const authUser = { ...user };
-      authUser.displayName = name;
-      authUser.photoURL = photoURL;
-
-      setUser(authUser);
-
-      Swal.fire({
-        icon: "success",
-        title: "Profile Updated!",
-        text: "Your changes have been saved.",
-        timer: 2000,
-        showConfirmButton: false,
-      });
-      setIsEditing(false);
-    } catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: "Update Failed",
-        text: error.message,
-      });
+      if (res.data.modifiedCount > 0) {
+        Swal.fire("Updated!", "Profile updated successfully", "success");
+        setIsEditing(false);
+      } else {
+        Swal.fire("No changes", "No update was made.", "info");
+      }
+    } catch (err) {
+      Swal.fire("Error", "Failed to update profile", "error");
     } finally {
       setIsUploading(false);
     }
   };
 
   const getRoleDisplay = () => {
-    switch (user?.role) {
+    switch (role) {
       case "admin":
         return "Administrator";
       case "member":
@@ -119,7 +100,7 @@ const DashboardProfile = () => {
   };
 
   const getRoleBadgeColor = () => {
-    switch (user?.role) {
+    switch (role) {
       case "admin":
         return "bg-red-100 text-red-800";
       case "member":
@@ -153,19 +134,15 @@ const DashboardProfile = () => {
         transition={{ duration: 0.5 }}
         className="max-w-3xl mx-auto"
       >
-        {/* Profile Card */}
         <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
-          {/* Header */}
           <div className="bg-gradient-to-r from-yellow-400 to-yellow-500 p-6">
             <h1 className="text-2xl md:text-3xl font-bold text-gray-900 font-serif">
               My Profile
             </h1>
           </div>
 
-          {/* Profile Content */}
           <div className="p-6 md:p-8">
             <div className="flex flex-col md:flex-row items-center gap-6">
-              {/* Profile Image */}
               <div className="relative group">
                 <img
                   src={
@@ -199,7 +176,6 @@ const DashboardProfile = () => {
                 )}
               </div>
 
-              {/* Profile Info */}
               <div className="flex-1 w-full">
                 {isEditing ? (
                   <div className="space-y-4">
@@ -229,16 +205,14 @@ const DashboardProfile = () => {
                 ) : (
                   <div>
                     <h2 className="text-2xl font-bold text-gray-900">
-                      {user?.displayName}
+                      {name || "Unnamed User"}
                     </h2>
                     <p className="text-gray-600 mt-1">{user?.email}</p>
                     <p className="text-gray-500 text-sm mt-2">
-                      Member since:{" "}
+                      Last login:{" "}
                       <span className="font-medium">
-                        {user?.metadata?.creationTime
-                          ? new Date(
-                              user.metadata.creationTime
-                            ).toLocaleDateString()
+                        {lastLogin
+                          ? new Date(lastLogin).toLocaleString()
                           : "N/A"}
                       </span>
                     </p>
@@ -247,19 +221,13 @@ const DashboardProfile = () => {
               </div>
             </div>
 
-            {/* Action Buttons */}
             <div className="mt-8 flex justify-end space-x-3">
               {isEditing ? (
                 <>
                   <motion.button
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.98 }}
-                    onClick={() => {
-                      // reset changes & cancel editing
-                      setName(user?.displayName || "");
-                      setPhotoURL(user?.photoURL || "");
-                      setIsEditing(false);
-                    }}
+                    onClick={() => setIsEditing(false)}
                     className="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors"
                   >
                     Cancel
@@ -288,9 +256,7 @@ const DashboardProfile = () => {
           </div>
         </div>
 
-        {/* Additional Profile Sections */}
         <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Membership Status */}
           <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-200">
             <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center">
               <svg
@@ -313,12 +279,11 @@ const DashboardProfile = () => {
               <span
                 className={`px-3 py-1 ${getRoleBadgeColor()} text-xs font-medium rounded-full`}
               >
-                {user?.role ? user.role.toUpperCase() : "USER"}
+                {role?.toUpperCase() || "USER"}
               </span>
             </div>
           </div>
 
-          {/* Recent Activity */}
           <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-200">
             <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center">
               <svg
@@ -338,7 +303,7 @@ const DashboardProfile = () => {
             </h3>
             <p className="text-gray-600">
               Last login:{" "}
-              {lastLogin ? lastLogin.toLocaleString() : "Not available"}
+              {lastLogin ? new Date(lastLogin).toLocaleString() : "N/A"}
             </p>
           </div>
         </div>
