@@ -190,8 +190,8 @@ const Navbar = () => {
           <div className="flex items-center gap-4 sm:gap-5 relative">
             <button
               aria-label="Notifications"
-              className="text-xl hover:text-blue-400 transition cursor-pointer p-1"
-              onClick={() => navigate("/announcement")}
+              className="text-xl rounded-full hover:bg-white hover:text-black transition cursor-pointer p-1"
+              onClick={() => navigate("/dashboard/announcements")}
             >
               <FiBell />
             </button>
