@@ -23,7 +23,7 @@ const navItems = [
   },
   {
     name: "Manage Courts",
-    path: "/dashboard/courts",
+    path: "/dashboard/courts/manage",
     icon: <FiSettings />,
   },
   {
