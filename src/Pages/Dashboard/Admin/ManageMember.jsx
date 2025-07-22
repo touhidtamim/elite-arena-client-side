@@ -143,7 +143,7 @@ const ManageMember = () => {
         </div>
 
         {/* Mobile Cards */}
-        <div className="sm:hidden divide-y divide-gray-200">
+        <div className="sm:hidden divide-y divide-gray-400">
           {filteredMembers.length > 0 ? (
             filteredMembers.map((member) => (
               <div key={member._id} className="p-4 hover:bg-gray-50">
