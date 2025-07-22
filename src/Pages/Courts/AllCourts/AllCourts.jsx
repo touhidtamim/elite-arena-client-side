@@ -121,7 +121,7 @@ const AllCourts = () => {
     return <div className="text-center py-20">No courts available</div>;
 
   return (
-    <div className="bg-gray-900">
+    <div id="premium-courts" className="bg-gray-900">
       <div className="bg-gradient-to-b from-gray-950 to-gray-800 h-24" />
       <div className="bg-white min-h-screen py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
