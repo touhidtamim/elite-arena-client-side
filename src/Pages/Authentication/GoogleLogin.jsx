@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
+import api from "../../api/axiosInstance";
 
 const GoogleLogin = () => {
   const { googleSignIn } = useContext(AuthContext);
@@ -11,32 +12,46 @@ const GoogleLogin = () => {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleGoogleLogin = () => {
+  const handleGoogleLogin = async () => {
     setIsLoading(true);
-    googleSignIn()
-      .then((result) => {
-        const loggedUser = result.user;
+    try {
+      const result = await googleSignIn();
+      const loggedUser = result.user;
 
+      // Prepare user data to save/update in backend
+      const userData = {
+        name: loggedUser.displayName || "User",
+        email: loggedUser.email,
+        image: loggedUser.photoURL || null,
+      };
+
+      // Send PUT request to backend /users endpoint
+      const res = await api.put("/users", userData);
+
+      if (res.status === 200 || res.status === 201) {
         Swal.fire({
           title: "Login Successful!",
-          text: `Welcome, ${loggedUser.displayName || "User"}!`,
+          text: `Welcome, ${userData.name}!`,
           icon: "success",
           confirmButtonColor: "#3085d6",
+          timer: 1500,
+          showConfirmButton: false,
         });
 
         navigate("/");
-      })
-      .catch((error) => {
-        Swal.fire({
-          title: "Login Failed",
-          text: error.message,
-          icon: "error",
-          confirmButtonColor: "#d33",
-        });
-      })
-      .finally(() => {
-        setIsLoading(false);
+      } else {
+        throw new Error("Failed to save user data");
+      }
+    } catch (error) {
+      Swal.fire({
+        title: "Login Failed",
+        text: error.message || "Something went wrong!",
+        icon: "error",
+        confirmButtonColor: "#d33",
       });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
