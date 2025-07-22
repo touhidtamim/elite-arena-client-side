@@ -6,8 +6,8 @@ import {
   FiUser,
   FiPlusSquare,
   FiClock,
-  FiEdit,
   FiTag,
+  FiCheckSquare,
 } from "react-icons/fi";
 import { MdCampaign, MdOutlineManageAccounts } from "react-icons/md";
 
@@ -34,10 +34,16 @@ const navItems = [
     icon: <FiClock />,
   },
   {
-    name: "Manage Bookings",
-    path: "/dashboard/bookings/manage",
-    icon: <FiEdit />,
+    name: "Bookings Approval",
+    path: "/dashboard/bookings/approval",
+    icon: <FiCheckSquare />,
   },
+  {
+    name: "Approve Bookings",
+    path: "/dashboard/bookings/approve",
+    icon: <FiCheckSquare />,
+  },
+
   {
     name: "Manage Members",
     path: "/dashboard/members",

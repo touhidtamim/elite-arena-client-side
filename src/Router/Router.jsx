@@ -22,13 +22,15 @@ import PrivateRouter from "./PrivateRouter";
 import DashboardProfile from "../Pages/Dashboard/DashboardProfile";
 import AddCourtPage from "../Pages/Dashboard/Admin/AddCourtPage";
 import PendingBookings from "../Pages/Dashboard/Shared/PendingBookings";
-import ManageBookings from "../Pages/Dashboard/Admin/ManageBookings";
 import ManageMember from "../Pages/Dashboard/Admin/ManageMember";
 import AllUsers from "../Pages/Dashboard/Admin/AllUsers";
 import ManageCourts from "../Pages/Dashboard/Admin/ManageCourts";
 import ManageCoupons from "../Pages/Dashboard/Admin/ManageCoupons";
 import Announcements from "../Pages/Dashboard/Member/Announcements";
 import ManageAnnouncement from "../Pages/Dashboard/Admin/ManageAnnouncement";
+import BookingsApproval from "../Pages/Dashboard/Admin/BookingsApproval";
+import ApproveBookings from "../Pages/Dashboard/Member/ApproveBookings";
+import PaymentPage from "../Pages/Dashboard/Member/PaymentPage";
 
 const Router = createBrowserRouter([
   {
@@ -62,11 +64,13 @@ const Router = createBrowserRouter([
       { path: "courts/manage", element: <ManageCourts /> },
       { path: "members", element: <ManageMember /> },
       { path: "bookings/pending", element: <PendingBookings /> },
-      { path: "bookings/manage", element: <ManageBookings /> },
+      { path: "bookings/approval", element: <BookingsApproval /> },
+      { path: "bookings/approve", element: <ApproveBookings /> },
       { path: "users", element: <AllUsers /> },
       { path: "coupons/manage", element: <ManageCoupons /> },
       { path: "announcements", element: <Announcements /> },
       { path: "announcements/manage", element: <ManageAnnouncement /> },
+      { path: "payment/:bookingId", element: <PaymentPage /> },
     ],
   },
 ]);

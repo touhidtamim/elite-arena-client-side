@@ -76,7 +76,7 @@ const AddCourtPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-12 xl:px-20">
+    <div className="min-h-screen bg-gray-900 py-8 px-4 sm:px-6 lg:px-12 xl:px-20">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -85,21 +85,19 @@ const AddCourtPage = () => {
       >
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 font-serif">
+          <h1 className="text-3xl font-bold text-white font-serif">
             Add New Court
           </h1>
-          <p className="mt-2 text-lg text-gray-600">
+          <p className="mt-2 text-lg text-gray-400">
             Fill in the details to add a new sports court to Elite Arena
           </p>
         </div>
 
         {/* Form Card */}
-        <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
+        <div className="bg-gray-800 rounded-xl shadow-lg overflow-hidden border border-gray-700">
           {/* Form Header */}
-          <div className="bg-gradient-to-r from-yellow-400 to-yellow-500 p-6">
-            <h2 className="text-xl font-bold text-gray-900">
-              Court Information
-            </h2>
+          <div className="bg-gradient-to-r from-yellow-600 to-yellow-700 p-6">
+            <h2 className="text-xl font-bold text-white">Court Information</h2>
           </div>
 
           {/* Form Content */}
@@ -109,7 +107,7 @@ const AddCourtPage = () => {
               <div className="sm:col-span-2 lg:col-span-3">
                 <label
                   htmlFor="name"
-                  className="block text-sm font-medium text-gray-700 mb-1"
+                  className="block text-sm font-medium text-gray-300 mb-1"
                 >
                   Court Name *
                 </label>
@@ -117,11 +115,11 @@ const AddCourtPage = () => {
                   id="name"
                   type="text"
                   {...register("name", { required: "Court name is required" })}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
+                  className="w-full px-4 py-2 bg-gray-700 text-white border border-gray-600 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
                   placeholder="e.g. Center Court, Arena 1"
                 />
                 {errors.name && (
-                  <p className="mt-1 text-sm text-red-600">
+                  <p className="mt-1 text-sm text-red-400">
                     {errors.name.message}
                   </p>
                 )}
@@ -131,14 +129,14 @@ const AddCourtPage = () => {
               <div>
                 <label
                   htmlFor="type"
-                  className="block text-sm font-medium text-gray-700 mb-1"
+                  className="block text-sm font-medium text-gray-300 mb-1"
                 >
                   Court Type *
                 </label>
                 <select
                   id="type"
                   {...register("type", { required: "Court type is required" })}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
+                  className="w-full px-4 py-2 bg-gray-700 text-white border border-gray-600 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
                 >
                   <option value="">Select a court type</option>
                   {courtTypes.map((type) => (
@@ -148,7 +146,7 @@ const AddCourtPage = () => {
                   ))}
                 </select>
                 {errors.type && (
-                  <p className="mt-1 text-sm text-red-600">
+                  <p className="mt-1 text-sm text-red-400">
                     {errors.type.message}
                   </p>
                 )}
@@ -158,7 +156,7 @@ const AddCourtPage = () => {
               <div>
                 <label
                   htmlFor="location"
-                  className="block text-sm font-medium text-gray-700 mb-1"
+                  className="block text-sm font-medium text-gray-300 mb-1"
                 >
                   Location *
                 </label>
@@ -172,12 +170,12 @@ const AddCourtPage = () => {
                     {...register("location", {
                       required: "Location is required",
                     })}
-                    className="w-full pl-10 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
+                    className="w-full pl-10 px-4 py-2 bg-gray-700 text-white border border-gray-600 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
                     placeholder="Court location"
                   />
                 </div>
                 {errors.location && (
-                  <p className="mt-1 text-sm text-red-600">
+                  <p className="mt-1 text-sm text-red-400">
                     {errors.location.message}
                   </p>
                 )}
@@ -187,7 +185,7 @@ const AddCourtPage = () => {
               <div>
                 <label
                   htmlFor="rate"
-                  className="block text-sm font-medium text-gray-700 mb-1"
+                  className="block text-sm font-medium text-gray-300 mb-1"
                 >
                   Hourly Rate (৳) *
                 </label>
@@ -202,12 +200,12 @@ const AddCourtPage = () => {
                       required: "Hourly rate is required",
                       min: { value: 0, message: "Rate must be positive" },
                     })}
-                    className="w-full pl-10 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
+                    className="w-full pl-10 px-4 py-2 bg-gray-700 text-white border border-gray-600 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
                     placeholder="500"
                   />
                 </div>
                 {errors.rate && (
-                  <p className="mt-1 text-sm text-red-600">
+                  <p className="mt-1 text-sm text-red-400">
                     {errors.rate.message}
                   </p>
                 )}
@@ -217,7 +215,7 @@ const AddCourtPage = () => {
               <div>
                 <label
                   htmlFor="capacity"
-                  className="block text-sm font-medium text-gray-700 mb-1"
+                  className="block text-sm font-medium text-gray-300 mb-1"
                 >
                   Player Capacity *
                 </label>
@@ -232,12 +230,12 @@ const AddCourtPage = () => {
                       required: "Capacity is required",
                       min: { value: 1, message: "Minimum capacity is 1" },
                     })}
-                    className="w-full pl-10 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
+                    className="w-full pl-10 px-4 py-2 bg-gray-700 text-white border border-gray-600 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
                     placeholder="4"
                   />
                 </div>
                 {errors.capacity && (
-                  <p className="mt-1 text-sm text-red-600">
+                  <p className="mt-1 text-sm text-red-400">
                     {errors.capacity.message}
                   </p>
                 )}
@@ -247,7 +245,7 @@ const AddCourtPage = () => {
               <div>
                 <label
                   htmlFor="availability"
-                  className="block text-sm font-medium text-gray-700 mb-1"
+                  className="block text-sm font-medium text-gray-300 mb-1"
                 >
                   Availability *
                 </label>
@@ -260,7 +258,7 @@ const AddCourtPage = () => {
                     {...register("availability", {
                       required: "Availability is required",
                     })}
-                    className="w-full pl-10 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
+                    className="w-full pl-10 px-4 py-2 bg-gray-700 text-white border border-gray-600 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
                   >
                     <option value="">Select availability</option>
                     <option value="morning">Morning (6AM - 12PM)</option>
@@ -270,7 +268,7 @@ const AddCourtPage = () => {
                   </select>
                 </div>
                 {errors.availability && (
-                  <p className="mt-1 text-sm text-red-600">
+                  <p className="mt-1 text-sm text-red-400">
                     {errors.availability.message}
                   </p>
                 )}
@@ -278,13 +276,13 @@ const AddCourtPage = () => {
 
               {/* Image Upload */}
               <div className="sm:col-span-2 lg:col-span-3">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-gray-300 mb-1">
                   Court Image *
                 </label>
                 <div className="mt-1 flex flex-col sm:flex-row items-start sm:items-center gap-4">
                   <label
                     htmlFor="image-upload"
-                    className="cursor-pointer bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-lg border border-gray-300 flex items-center transition-colors"
+                    className="cursor-pointer bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded-lg border border-gray-600 flex items-center transition-colors text-white"
                   >
                     <FaUpload className="mr-2" />
                     <span>Upload Image</span>
@@ -304,17 +302,17 @@ const AddCourtPage = () => {
                       <img
                         src={previewImage}
                         alt="Court preview"
-                        className="h-24 w-24 object-cover rounded-lg border"
+                        className="h-24 w-24 object-cover rounded-lg border border-gray-600"
                       />
                     </div>
                   )}
                 </div>
                 {errors.image && (
-                  <p className="mt-1 text-sm text-red-600">
+                  <p className="mt-1 text-sm text-red-400">
                     {errors.image.message}
                   </p>
                 )}
-                <p className="mt-1 text-xs text-gray-500">
+                <p className="mt-1 text-xs text-gray-400">
                   Upload a high-quality image of the court (JPEG, PNG)
                 </p>
               </div>
@@ -323,7 +321,7 @@ const AddCourtPage = () => {
               <div className="sm:col-span-2 lg:col-span-3">
                 <label
                   htmlFor="description"
-                  className="block text-sm font-medium text-gray-700 mb-1"
+                  className="block text-sm font-medium text-gray-300 mb-1"
                 >
                   Description
                 </label>
@@ -331,14 +329,14 @@ const AddCourtPage = () => {
                   id="description"
                   rows={4}
                   {...register("description")}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
+                  className="w-full px-4 py-2 bg-gray-700 text-white border border-gray-600 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent"
                   placeholder="Describe the court features, surface type, lighting, etc."
                 />
               </div>
 
               {/* Amenities */}
               <div className="sm:col-span-2 lg:col-span-3">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-300 mb-2">
                   Amenities
                 </label>
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
@@ -358,11 +356,11 @@ const AddCourtPage = () => {
                         type="checkbox"
                         value={amenity}
                         {...register("amenities")}
-                        className="h-4 w-4 text-yellow-500 focus:ring-yellow-400 border-gray-300 rounded"
+                        className="h-4 w-4 text-yellow-500 focus:ring-yellow-400 border-gray-600 rounded bg-gray-700"
                       />
                       <label
                         htmlFor={`amenity-${amenity}`}
-                        className="ml-2 text-sm text-gray-700"
+                        className="ml-2 text-sm text-gray-300"
                       >
                         {amenity}
                       </label>
@@ -379,12 +377,12 @@ const AddCourtPage = () => {
                 disabled={isSubmitting}
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.98 }}
-                className="px-6 py-3 bg-yellow-400 hover:bg-yellow-500 text-black font-bold rounded-lg shadow-md transition-colors disabled:opacity-70 disabled:cursor-not-allowed flex items-center"
+                className="px-6 py-3 bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold rounded-lg shadow-md transition-colors disabled:opacity-70 disabled:cursor-not-allowed flex items-center"
               >
                 {isSubmitting ? (
                   <>
                     <svg
-                      className="animate-spin -ml-1 mr-3 h-5 w-5 text-black"
+                      className="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-900"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
