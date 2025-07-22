@@ -24,8 +24,8 @@ import AddCourtPage from "../Pages/Dashboard/Admin/AddCourtPage";
 import PendingBookings from "../Pages/Dashboard/Shared/PendingBookings";
 import ManageBookings from "../Pages/Dashboard/Admin/ManageBookings";
 import ManageMember from "../Pages/Dashboard/Admin/ManageMember";
+import AllUsers from "../Pages/Dashboard/Admin/AllUsers";
 // import DashboardManageCourts from "../Pages/Dashboard/Courts/ManageCourts";
-// import DashboardBookings from "../Pages/Dashboard/Bookings/Bookings";
 
 const Router = createBrowserRouter([
   {
@@ -57,10 +57,10 @@ const Router = createBrowserRouter([
       { path: "profile", element: <DashboardProfile /> },
       { path: "courts/add", element: <AddCourtPage /> },
       // { path: "courts", element: <DashboardManageCourts /> },
-      // { path: "bookings", element: <DashboardBookings /> },
       { path: "members", element: <ManageMember /> },
       { path: "bookings/pending", element: <PendingBookings /> },
       { path: "bookings/manage", element: <ManageBookings /> },
+      { path: "users", element: <AllUsers /> },
     ],
   },
 ]);

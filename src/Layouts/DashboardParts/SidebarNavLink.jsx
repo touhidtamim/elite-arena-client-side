@@ -27,11 +27,6 @@ const navItems = [
     icon: <FiSettings />,
   },
   {
-    name: "Bookings",
-    path: "/dashboard/bookings",
-    icon: <FiGrid />,
-  },
-  {
     name: "Pending Bookings",
     path: "/dashboard/bookings/pending",
     icon: <FiClock />,
@@ -44,6 +39,11 @@ const navItems = [
   {
     name: "Manage Members",
     path: "/dashboard/members",
+    icon: <FiUser />,
+  },
+  {
+    name: "All Users",
+    path: "/dashboard/users",
     icon: <FiUser />,
   },
 ];
