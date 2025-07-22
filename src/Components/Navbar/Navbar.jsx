@@ -5,6 +5,7 @@ import { FiBell } from "react-icons/fi";
 import Logo from "../Shared/Logo";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
+import api from "../../api/axiosInstance";
 
 const Navbar = () => {
   const { user, logOut } = useContext(AuthContext);
@@ -14,6 +15,8 @@ const Navbar = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+
+  const [userData, setUserData] = useState(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,6 +37,16 @@ const Navbar = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  // Fetch latest user info from backend
+  useEffect(() => {
+    if (user?.email) {
+      api
+        .get(`/users/${user.email}`)
+        .then((res) => setUserData(res.data))
+        .catch((err) => console.error("User fetch failed:", err));
+    }
+  }, [user]);
 
   const toggleDrawer = () => {
     setDrawerOpen((prev) => !prev);
@@ -128,7 +141,6 @@ const Navbar = () => {
         </div>
 
         {/* MIDDLE */}
-        {/* Desktop nav links */}
         <div className="hidden lg:flex gap-6 xl:gap-8 font-serif">
           {navLinks.map((link) => (
             <NavLink
@@ -148,7 +160,6 @@ const Navbar = () => {
         {/* RIGHT SIDE */}
         {!user && (
           <>
-            {/* Desktop: show Login + Register inline */}
             <div className="hidden lg:flex items-center gap-4 font-serif text-sm">
               <Link
                 to="/login"
@@ -164,7 +175,6 @@ const Navbar = () => {
               </Link>
             </div>
 
-            {/* Mobile & Tablet: show only Login button on right side */}
             <div className="flex items-center gap-4 font-serif text-sm lg:hidden">
               <Link
                 to="/login"
@@ -195,7 +205,7 @@ const Navbar = () => {
               >
                 <img
                   src={
-                    user.photoURL ||
+                    userData?.image ||
                     "https://ui-avatars.com/api/?name=" +
                       encodeURIComponent(user.displayName || "User") +
                       "&background=3b82f6&color=fff&size=64"
@@ -208,7 +218,7 @@ const Navbar = () => {
               {dropdownOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-gray-800 border border-gray-700 rounded shadow-lg z-50">
                   <div className="px-4 py-2 border-b border-gray-700 text-sm text-gray-300 select-none">
-                    {user.displayName || "User"}
+                    {userData?.name || user.displayName || "User"}
                   </div>
                   <NavLink
                     to="/dashboard"
