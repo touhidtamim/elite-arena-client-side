@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { motion } from "framer-motion";
 import {
   FaUpload,
   FaMapMarkerAlt,
@@ -75,20 +76,37 @@ const AddCourtPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
+    <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-12 xl:px-20">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="max-w-6xl mx-auto"
+      >
+        {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">Add New Court</h1>
+          <h1 className="text-3xl font-bold text-gray-900 font-serif">
+            Add New Court
+          </h1>
           <p className="mt-2 text-lg text-gray-600">
             Fill in the details to add a new sports court to Elite Arena
           </p>
         </div>
 
-        <div className="bg-white shadow-xl rounded-lg overflow-hidden">
-          <form onSubmit={handleSubmit(onSubmit)} className="p-6 sm:p-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Form Card */}
+        <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200">
+          {/* Form Header */}
+          <div className="bg-gradient-to-r from-yellow-400 to-yellow-500 p-6">
+            <h2 className="text-xl font-bold text-gray-900">
+              Court Information
+            </h2>
+          </div>
+
+          {/* Form Content */}
+          <form onSubmit={handleSubmit(onSubmit)} className="p-4 sm:p-6 md:p-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {/* Court Name */}
-              <div className="col-span-2">
+              <div className="sm:col-span-2 lg:col-span-3">
                 <label
                   htmlFor="name"
                   className="block text-sm font-medium text-gray-700 mb-1"
@@ -99,7 +117,7 @@ const AddCourtPage = () => {
                   id="name"
                   type="text"
                   {...register("name", { required: "Court name is required" })}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
                   placeholder="e.g. Center Court, Arena 1"
                 />
                 {errors.name && (
@@ -120,7 +138,7 @@ const AddCourtPage = () => {
                 <select
                   id="type"
                   {...register("type", { required: "Court type is required" })}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
                 >
                   <option value="">Select a court type</option>
                   {courtTypes.map((type) => (
@@ -154,7 +172,7 @@ const AddCourtPage = () => {
                     {...register("location", {
                       required: "Location is required",
                     })}
-                    className="w-full pl-10 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full pl-10 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
                     placeholder="Court location"
                   />
                 </div>
@@ -184,7 +202,7 @@ const AddCourtPage = () => {
                       required: "Hourly rate is required",
                       min: { value: 0, message: "Rate must be positive" },
                     })}
-                    className="w-full pl-10 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full pl-10 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
                     placeholder="500"
                   />
                 </div>
@@ -214,7 +232,7 @@ const AddCourtPage = () => {
                       required: "Capacity is required",
                       min: { value: 1, message: "Minimum capacity is 1" },
                     })}
-                    className="w-full pl-10 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full pl-10 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
                     placeholder="4"
                   />
                 </div>
@@ -242,7 +260,7 @@ const AddCourtPage = () => {
                     {...register("availability", {
                       required: "Availability is required",
                     })}
-                    className="w-full pl-10 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full pl-10 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
                   >
                     <option value="">Select availability</option>
                     <option value="morning">Morning (6AM - 12PM)</option>
@@ -259,14 +277,14 @@ const AddCourtPage = () => {
               </div>
 
               {/* Image Upload */}
-              <div className="col-span-2">
+              <div className="sm:col-span-2 lg:col-span-3">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
                   Court Image *
                 </label>
-                <div className="mt-1 flex items-center">
+                <div className="mt-1 flex flex-col sm:flex-row items-start sm:items-center gap-4">
                   <label
                     htmlFor="image-upload"
-                    className="cursor-pointer bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-lg border border-gray-300 flex items-center"
+                    className="cursor-pointer bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-lg border border-gray-300 flex items-center transition-colors"
                   >
                     <FaUpload className="mr-2" />
                     <span>Upload Image</span>
@@ -282,11 +300,11 @@ const AddCourtPage = () => {
                     />
                   </label>
                   {previewImage && (
-                    <div className="ml-4">
+                    <div className="flex-shrink-0">
                       <img
                         src={previewImage}
                         alt="Court preview"
-                        className="h-16 w-16 object-cover rounded"
+                        className="h-24 w-24 object-cover rounded-lg border"
                       />
                     </div>
                   )}
@@ -302,7 +320,7 @@ const AddCourtPage = () => {
               </div>
 
               {/* Description */}
-              <div className="col-span-2">
+              <div className="sm:col-span-2 lg:col-span-3">
                 <label
                   htmlFor="description"
                   className="block text-sm font-medium text-gray-700 mb-1"
@@ -313,13 +331,13 @@ const AddCourtPage = () => {
                   id="description"
                   rows={4}
                   {...register("description")}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-400 focus:border-transparent"
                   placeholder="Describe the court features, surface type, lighting, etc."
                 />
               </div>
 
               {/* Amenities */}
-              <div className="col-span-2">
+              <div className="sm:col-span-2 lg:col-span-3">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Amenities
                 </label>
@@ -340,7 +358,7 @@ const AddCourtPage = () => {
                         type="checkbox"
                         value={amenity}
                         {...register("amenities")}
-                        className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                        className="h-4 w-4 text-yellow-500 focus:ring-yellow-400 border-gray-300 rounded"
                       />
                       <label
                         htmlFor={`amenity-${amenity}`}
@@ -354,16 +372,19 @@ const AddCourtPage = () => {
               </div>
             </div>
 
+            {/* Submit Button */}
             <div className="mt-8 flex justify-end">
-              <button
+              <motion.button
                 type="submit"
                 disabled={isSubmitting}
-                className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow-md transition-colors disabled:opacity-70 disabled:cursor-not-allowed flex items-center"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
+                className="px-6 py-3 bg-yellow-400 hover:bg-yellow-500 text-black font-bold rounded-lg shadow-md transition-colors disabled:opacity-70 disabled:cursor-not-allowed flex items-center"
               >
                 {isSubmitting ? (
                   <>
                     <svg
-                      className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                      className="animate-spin -ml-1 mr-3 h-5 w-5 text-black"
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
@@ -387,11 +408,11 @@ const AddCourtPage = () => {
                 ) : (
                   "Add Court"
                 )}
-              </button>
+              </motion.button>
             </div>
           </form>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
