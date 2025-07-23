@@ -11,7 +11,7 @@ const ManageMember = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   // Different items per page for mobile (cards) and desktop (table)
-  const mobileItemsPerPage = 6;
+  const mobileItemsPerPage = 8;
   const desktopItemsPerPage = 10;
   const itemsPerPage =
     window.innerWidth < 640 ? mobileItemsPerPage : desktopItemsPerPage;

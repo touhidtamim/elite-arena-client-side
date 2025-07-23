@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { FaEdit, FaTrash, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { toast } from "react-toastify";
 import api from "../../../api/axiosInstance";
 
@@ -15,11 +15,17 @@ const CouponTable = ({ refreshToggle }) => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPageDesktop = 10;
+  const itemsPerPageMobile = 8;
+
   // Fetch coupons from backend
   const fetchCoupons = async () => {
     try {
       const res = await api.get("/coupons");
       setCoupons(res.data);
+      setCurrentPage(1); // Reset to first page when data changes
     } catch (err) {
       toast.error("Failed to load coupons");
     }
@@ -114,43 +120,106 @@ const CouponTable = ({ refreshToggle }) => {
     }
   };
 
+  // Pagination logic
+  const isMobile = window.innerWidth < 768; // Check if mobile view
+  const itemsPerPage = isMobile ? itemsPerPageMobile : itemsPerPageDesktop;
+  const totalPages = Math.ceil(coupons.length / itemsPerPage);
+  const paginatedCoupons = coupons.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  const handlePageChange = (newPage) => {
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+    }
+  };
+
   return (
     <>
-      <div className="overflow-x-auto bg-gray-900 p-6 rounded-xl shadow mb-8">
+      <div className="overflow-x-auto bg-gray-900 p-4 md:p-6 rounded-xl shadow mb-8">
         <h3 className="text-xl font-semibold text-white mb-4">All Coupons</h3>
-        <table className="table-auto w-full text-left text-white">
-          <thead>
-            <tr className="bg-gray-800 text-sm">
-              <th className="px-4 py-2">Coupon Code</th>
-              <th className="px-4 py-2">Title</th>
-              <th className="px-4 py-2">Description</th>
-              <th className="px-4 py-2">Discount (৳)</th>
-              <th className="px-4 py-2 text-center">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {coupons.length === 0 ? (
-              <tr>
-                <td colSpan="5" className="text-center py-4">
-                  No coupons available.
-                </td>
+
+        {/* Desktop Table View */}
+        <div className="hidden md:block">
+          <table className="table-auto w-full text-left text-white">
+            <thead>
+              <tr className="bg-gray-800 text-sm">
+                <th className="px-4 py-2">Coupon Code</th>
+                <th className="px-4 py-2">Title</th>
+                <th className="px-4 py-2">Description</th>
+                <th className="px-4 py-2">Discount (৳)</th>
+                <th className="px-4 py-2 text-center">Actions</th>
               </tr>
-            ) : (
-              coupons.map((coupon) => (
-                <tr
-                  key={coupon._id}
-                  className="border-t border-gray-700 hover:bg-gray-800 transition"
-                >
-                  <td className="px-4 py-2">{coupon.coupon}</td>
-                  <td className="px-4 py-2">{coupon.title}</td>
-                  <td className="px-4 py-2">{coupon.description}</td>
-                  <td className="px-4 py-2 text-emerald-400 font-bold">
-                    ৳{Number(coupon.discountAmount)}
+            </thead>
+            <tbody>
+              {paginatedCoupons.length === 0 ? (
+                <tr>
+                  <td colSpan="5" className="text-center py-4">
+                    No coupons available.
                   </td>
-                  <td className="px-4 py-2 text-center">
+                </tr>
+              ) : (
+                paginatedCoupons.map((coupon) => (
+                  <tr
+                    key={coupon._id}
+                    className="border-t border-gray-700 hover:bg-gray-800 transition"
+                  >
+                    <td className="px-4 py-2">{coupon.coupon}</td>
+                    <td className="px-4 py-2">{coupon.title}</td>
+                    <td className="px-4 py-2">{coupon.description}</td>
+                    <td className="px-4 py-2 text-emerald-400 font-bold">
+                      ৳{Number(coupon.discountAmount)}
+                    </td>
+                    <td className="px-4 py-2 text-center">
+                      <button
+                        onClick={() => handleEdit(coupon)}
+                        className="mr-3"
+                        title="Edit Coupon"
+                      >
+                        <FaEdit className="text-yellow-400 hover:scale-110 duration-150" />
+                      </button>
+                      <button
+                        onClick={() => handleDelete(coupon._id)}
+                        title="Delete Coupon"
+                      >
+                        <FaTrash className="text-red-500 hover:scale-110 duration-150" />
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Mobile Card View */}
+        <div className="md:hidden space-y-3">
+          {paginatedCoupons.length === 0 ? (
+            <div className="text-center py-4 text-white">
+              No coupons available.
+            </div>
+          ) : (
+            paginatedCoupons.map((coupon) => (
+              <div key={coupon._id} className="bg-gray-800 p-4 rounded-lg">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h4 className="font-semibold text-white">{coupon.title}</h4>
+                    <p className="text-gray-300 text-sm mt-1">
+                      {coupon.description}
+                    </p>
+                  </div>
+                  <div className="text-emerald-400 font-bold">
+                    ৳{Number(coupon.discountAmount)}
+                  </div>
+                </div>
+                <div className="mt-3 flex justify-between items-center">
+                  <span className="bg-gray-700 text-green-400 px-2 py-1 rounded text-sm">
+                    {coupon.coupon}
+                  </span>
+                  <div className="flex space-x-3">
                     <button
                       onClick={() => handleEdit(coupon)}
-                      className="mr-3"
                       title="Edit Coupon"
                     >
                       <FaEdit className="text-yellow-400 hover:scale-110 duration-150" />
@@ -161,15 +230,48 @@ const CouponTable = ({ refreshToggle }) => {
                     >
                       <FaTrash className="text-red-500 hover:scale-110 duration-150" />
                     </button>
-                  </td>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
+                  </div>
+                </div>
+              </div>
+            ))
+          )}
+        </div>
+
+        {/* Pagination */}
+        {coupons.length > 0 && (
+          <div className="flex justify-between items-center mt-4 text-white">
+            <button
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+              className={`flex items-center px-3 py-1 rounded ${
+                currentPage === 1
+                  ? "bg-gray-700 cursor-not-allowed"
+                  : "bg-gray-600 hover:bg-gray-500"
+              }`}
+            >
+              <FaChevronLeft className="mr-1" /> Previous
+            </button>
+
+            <div className="text-sm">
+              Page {currentPage} of {totalPages}
+            </div>
+
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              className={`flex items-center px-3 py-1 rounded ${
+                currentPage === totalPages
+                  ? "bg-gray-700 cursor-not-allowed"
+                  : "bg-gray-600 hover:bg-gray-500"
+              }`}
+            >
+              Next <FaChevronRight className="ml-1" />
+            </button>
+          </div>
+        )}
       </div>
 
-      {/* Edit Modal */}
+      {/* Edit Modal (unchanged) */}
       {isModalOpen && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 px-4">
           <div className="bg-gray-900 p-6 rounded-xl max-w-md w-full relative shadow-lg">
