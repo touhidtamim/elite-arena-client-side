@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import api from "../../../api/axiosInstance";
 import { toast } from "react-toastify";
 import { AuthContext } from "../../../Provider/AuthProvider";
-import { FaReceipt } from "react-icons/fa";
+import { FaReceipt, FaTable, FaTh } from "react-icons/fa";
 import { motion } from "framer-motion";
 
 const PaymentHistory = () => {
@@ -14,6 +14,7 @@ const PaymentHistory = () => {
   const [itemsPerPage, setItemsPerPage] = useState(() => {
     return window.innerWidth < 768 ? 6 : 10;
   });
+  const [viewMode, setViewMode] = useState("table"); // 'table' or 'card'
 
   useEffect(() => {
     const handleResize = () => {
@@ -103,9 +104,37 @@ const PaymentHistory = () => {
           <p className="text-gray-300 mt-1">Your completed transactions</p>
         </div>
 
-        <div className="flex items-center gap-2 text-gray-400">
-          <FaReceipt className="text-yellow-500" />
-          <span>Total Payments: {payments.length}</span>
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 text-gray-400">
+            <FaReceipt className="text-yellow-500" />
+            <span>Total Payments: {payments.length}</span>
+          </div>
+
+          {/* View Mode Toggle */}
+          <div className="flex items-center gap-1 bg-gray-800 rounded-md p-1">
+            <button
+              onClick={() => setViewMode("table")}
+              className={`p-2 rounded-md ${
+                viewMode === "table"
+                  ? "bg-gray-700 text-yellow-400"
+                  : "text-gray-400 hover:bg-gray-700"
+              }`}
+              title="Table View"
+            >
+              <FaTable />
+            </button>
+            <button
+              onClick={() => setViewMode("card")}
+              className={`p-2 rounded-md ${
+                viewMode === "card"
+                  ? "bg-gray-700 text-yellow-400"
+                  : "text-gray-400 hover:bg-gray-700"
+              }`}
+              title="Card View"
+            >
+              <FaTh />
+            </button>
+          </div>
         </div>
       </div>
 
@@ -133,153 +162,159 @@ const PaymentHistory = () => {
         </div>
       ) : (
         <>
-          {/* Desktop Table */}
-          <div className="hidden md:block overflow-x-auto">
-            <table className="min-w-full border border-gray-700 rounded-lg overflow-hidden">
-              <thead className="bg-gray-800">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
-                    Court
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
-                    Date
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
-                    Slots
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
-                    Amount
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
-                    Status
-                  </th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
-                    Transaction
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-gray-800 divide-y divide-gray-700">
-                {currentItems.map((payment) => (
-                  <motion.tr
-                    key={payment.transactionId}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.3 }}
-                    className="hover:bg-gray-750"
-                  >
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="flex items-center">
-                        <div className="flex-shrink-0 h-10 w-10 bg-gray-700 rounded-md flex items-center justify-center">
-                          <span className="text-gray-300 font-semibold">
-                            {getCourtName(payment.courtId).charAt(0)}
-                          </span>
-                        </div>
-                        <div className="ml-4">
-                          <div className="text-sm font-medium text-white">
-                            {getCourtName(payment.courtId)}
+          {/* Desktop Table - Only shown when viewMode is 'table' and not mobile */}
+          {viewMode === "table" && (
+            <div className="hidden md:block overflow-x-auto">
+              <table className="min-w-full border border-gray-700 rounded-lg overflow-hidden">
+                <thead className="bg-gray-800">
+                  <tr>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                      Court
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                      Date
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                      Slots
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                      Amount
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                      Status
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">
+                      Transaction
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="bg-gray-800 divide-y divide-gray-700">
+                  {currentItems.map((payment) => (
+                    <motion.tr
+                      key={payment.transactionId}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.3 }}
+                      className="hover:bg-gray-750"
+                    >
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="flex items-center">
+                          <div className="flex-shrink-0 h-10 w-10 bg-gray-700 rounded-md flex items-center justify-center">
+                            <span className="text-gray-300 font-semibold">
+                              {getCourtName(payment.courtId).charAt(0)}
+                            </span>
                           </div>
-                          <div className="text-sm text-gray-400">
-                            {payment.date}
+                          <div className="ml-4">
+                            <div className="text-sm font-medium text-white">
+                              {getCourtName(payment.courtId)}
+                            </div>
+                            <div className="text-sm text-gray-400">
+                              {payment.date}
+                            </div>
                           </div>
                         </div>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-gray-300">
+                        {new Date(payment.paidAt).toLocaleDateString()}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-gray-300">
+                        {payment.slots} slot{payment.slots > 1 ? "s" : ""}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <div className="text-white font-medium">
+                          ৳{payment.price.toLocaleString()}
+                        </div>
+                        {payment.couponCode && (
+                          <div className="text-xs text-yellow-400 mt-1">
+                            Coupon: {payment.couponCode}
+                          </div>
+                        )}
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                        <span
+                          className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                            payment.status === "paid"
+                              ? "bg-green-900 text-green-300"
+                              : "bg-red-900 text-red-300"
+                          }`}
+                        >
+                          {payment.status}
+                        </span>
+                      </td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
+                        <div className="truncate max-w-[120px]">
+                          {payment.transactionId}
+                        </div>
+                        <div className="text-xs text-gray-500">
+                          {new Date(payment.paidAt).toLocaleTimeString()}
+                        </div>
+                      </td>
+                    </motion.tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+
+          {/* Cards - Shown when viewMode is 'card' or on mobile */}
+          {(viewMode === "card" || window.innerWidth < 768) && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {currentItems.map((payment) => (
+                <motion.div
+                  key={payment.transactionId}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="bg-gray-800 rounded-lg p-4 border border-gray-700"
+                >
+                  <div className="flex justify-between items-start">
+                    <div>
+                      <h3 className="text-lg font-semibold text-white">
+                        {getCourtName(payment.courtId)}
+                      </h3>
+                      <div className="text-gray-400 text-sm mt-1">
+                        {payment.date}
                       </div>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-gray-300">
-                      {new Date(payment.paidAt).toLocaleDateString()}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-gray-300">
+                    </div>
+                    <span
+                      className={`px-2 py-1 text-xs font-semibold rounded-full ${
+                        payment.status === "paid"
+                          ? "bg-green-900 text-green-300"
+                          : "bg-red-900 text-red-300"
+                      }`}
+                    >
+                      {payment.status}
+                    </span>
+                  </div>
+
+                  <div className="mt-4 grid grid-cols-2 gap-4">
+                    <div className="text-gray-300">
                       {payment.slots} slot{payment.slots > 1 ? "s" : ""}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    </div>
+                    <div className="text-right">
                       <div className="text-white font-medium">
                         ৳{payment.price.toLocaleString()}
                       </div>
                       {payment.couponCode && (
-                        <div className="text-xs text-yellow-400 mt-1">
-                          Coupon: {payment.couponCode}
+                        <div className="text-xs text-yellow-400">
+                          Used: {payment.couponCode}
                         </div>
                       )}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      <span
-                        className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                          payment.status === "paid"
-                            ? "bg-green-900 text-green-300"
-                            : "bg-red-900 text-red-300"
-                        }`}
-                      >
-                        {payment.status}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
-                      <div className="truncate max-w-[120px]">
-                        {payment.transactionId}
-                      </div>
-                      <div className="text-xs text-gray-500">
-                        {new Date(payment.paidAt).toLocaleTimeString()}
-                      </div>
-                    </td>
-                  </motion.tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          {/* Mobile Cards */}
-          <div className="md:hidden space-y-4">
-            {currentItems.map((payment) => (
-              <motion.div
-                key={payment.transactionId}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3 }}
-                className="bg-gray-800 rounded-lg p-4 border border-gray-700"
-              >
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h3 className="text-lg font-semibold text-white">
-                      {getCourtName(payment.courtId)}
-                    </h3>
-                    <div className="text-gray-400 text-sm mt-1">
-                      {payment.date}
                     </div>
                   </div>
-                  <span
-                    className={`px-2 py-1 text-xs font-semibold rounded-full ${
-                      payment.status === "paid"
-                        ? "bg-green-900 text-green-300"
-                        : "bg-red-900 text-red-300"
-                    }`}
-                  >
-                    {payment.status}
-                  </span>
-                </div>
 
-                <div className="mt-4 grid grid-cols-2 gap-4">
-                  <div className="text-gray-300">
-                    {payment.slots} slot{payment.slots > 1 ? "s" : ""}
-                  </div>
-                  <div className="text-right">
-                    <div className="text-white font-medium">
-                      ৳{payment.price.toLocaleString()}
-                    </div>
-                    {payment.couponCode && (
-                      <div className="text-xs text-yellow-400">
-                        Used: {payment.couponCode}
+                  <div className="mt-3 pt-3 border-t border-gray-700">
+                    <div className="text-xs text-gray-400">
+                      <div className="truncate">
+                        TXN: {payment.transactionId}
                       </div>
-                    )}
+                      <div>{new Date(payment.paidAt).toLocaleString()}</div>
+                    </div>
                   </div>
-                </div>
-
-                <div className="mt-3 pt-3 border-t border-gray-700">
-                  <div className="text-xs text-gray-400">
-                    <div className="truncate">TXN: {payment.transactionId}</div>
-                    <div>{new Date(payment.paidAt).toLocaleString()}</div>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </div>
+                </motion.div>
+              ))}
+            </div>
+          )}
 
           {/* Pagination */}
           {totalPages > 1 && (
