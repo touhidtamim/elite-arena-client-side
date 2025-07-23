@@ -94,8 +94,8 @@ If you want to run this project on your local machine:
 ### Step 1: Clone both repositories
 
 ```bash
-git clone https://github.com/touhidtamim/elite-arena-Client-Side
-git clone https://github.com/touhidtamim/elite-arena-Server-Side
+git clone https://github.com/touhidtamim/elite-arena-client-side
+git clone https://github.com/touhidtamim/elite-arena-server-side
 ```
 
 ### Step 2: Setup Backend (Server)
@@ -123,10 +123,10 @@ Your app will be running locally at: `http://localhost:5173`
 ## 🔗 Repository Links
 
 **Backend (Server) Repository:**  
-https://github.com/touhidtamim/elite-arena-Server-Side
+https://github.com/touhidtamim/elite-arena-server-side
 
 **Frontend (Client) Repository:**  
-https://github.com/touhidtamim/elite-arena-Client-Side
+https://github.com/touhidtamim/elite-arena-client-side
 
 ---
 
