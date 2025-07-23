@@ -225,7 +225,7 @@ const PaymentPage = () => {
           finalPrice={finalPrice}
           couponCode={couponCode}
           discount={discount}
-          onPaymentSuccess={() => navigate("/dashboard/bookings/confirmed")}
+          onPaymentSuccess={() => navigate("/dashboard/payments/history")}
         />
       </div>
     </div>

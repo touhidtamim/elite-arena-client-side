@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { FaEdit, FaTrash, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { toast } from "react-toastify";
 import api from "../../../api/axiosInstance";
+import Swal from "sweetalert2";
 
 const CouponTable = ({ refreshToggle }) => {
   const [coupons, setCoupons] = useState([]);
@@ -38,7 +39,17 @@ const CouponTable = ({ refreshToggle }) => {
 
   // Delete coupon
   const handleDelete = async (id) => {
-    if (!confirm("Are you sure you want to delete this coupon?")) return;
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    });
+
+    if (!result.isConfirmed) return;
     try {
       await api.delete(`/coupons/${id}`);
       toast.success("Deleted successfully");
