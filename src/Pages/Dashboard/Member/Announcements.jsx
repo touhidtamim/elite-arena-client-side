@@ -1,49 +1,52 @@
 import React, { useEffect, useState } from "react";
 import api from "../../../api/axiosInstance";
 import { formatDistanceToNow } from "date-fns";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 
 const Announcements = () => {
-  const [announcements, setAnnouncements] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(10); // Default for desktop
+  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const queryClient = useQueryClient();
 
-  const fetchAnnouncements = async () => {
-    try {
+  // 📦 Fetch announcements with React Query
+  const { data: announcements = [], isLoading: loading } = useQuery({
+    queryKey: ["announcements"],
+    queryFn: async () => {
       const res = await api.get("/announcements");
-      setAnnouncements(res.data);
-    } catch (err) {
-      console.error("Error fetching announcements", err);
-    } finally {
-      setLoading(false);
-    }
-  };
+      return res.data;
+    },
+  });
 
+  // 🗑️ Delete mutation
+  const deleteAnnouncementMutation = useMutation({
+    mutationFn: async (id) => {
+      const res = await api.delete(`/announcements/${id}`);
+      return res.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["announcements"] });
+    },
+    onError: (err) => {
+      console.error("Error deleting announcement:", err);
+    },
+  });
+
+  // 🧠 Responsive itemsPerPage
   useEffect(() => {
-    fetchAnnouncements();
-
-    // Set items per page based on screen size
     const handleResize = () => {
       if (window.innerWidth < 768) {
-        // Mobile
         setItemsPerPage(6);
       } else {
-        // Tablet and desktop
         setItemsPerPage(10);
       }
     };
 
-    // Set initial value
-    handleResize();
-
-    // Add event listener
+    handleResize(); // initial
     window.addEventListener("resize", handleResize);
-
-    // Clean up
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Get current announcements
+  // 📃 Pagination logic
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = announcements.slice(indexOfFirstItem, indexOfLastItem);
@@ -114,11 +117,20 @@ const Announcements = () => {
                     <h3 className="md:text-xl font-bold text-white mb-2">
                       {title}
                     </h3>
-                    <span className="text-xs px-2 py-1 rounded-full bg-gray-700 text-gray-300">
-                      {formatDistanceToNow(new Date(createdAt), {
-                        addSuffix: true,
-                      })}
-                    </span>
+                    <div className="flex gap-2 items-center">
+                      <span className="text-xs px-2 py-1 rounded-full bg-gray-700 text-gray-300">
+                        {formatDistanceToNow(new Date(createdAt), {
+                          addSuffix: true,
+                        })}
+                      </span>
+                      <button
+                        onClick={() => deleteAnnouncementMutation.mutate(_id)}
+                        className="text-xs text-red-500 hover:text-red-700"
+                        title="Delete announcement"
+                      >
+                        🗑️
+                      </button>
+                    </div>
                   </div>
                   <p className="text-gray-300 mb-2 whitespace-pre-line">
                     {content}
@@ -132,7 +144,6 @@ const Announcements = () => {
           {announcements.length > itemsPerPage && (
             <div className="flex justify-center mt-8">
               <nav className="flex items-center gap-1">
-                {/* Previous button */}
                 <button
                   onClick={() =>
                     setCurrentPage((prev) => Math.max(prev - 1, 1))
@@ -140,7 +151,6 @@ const Announcements = () => {
                   disabled={currentPage === 1}
                   className="p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <span className="sr-only">Previous</span>
                   <svg
                     className="h-5 w-5"
                     viewBox="0 0 20 20"
@@ -154,7 +164,6 @@ const Announcements = () => {
                   </svg>
                 </button>
 
-                {/* Page numbers */}
                 {Array.from({ length: totalPages }, (_, i) => i + 1).map(
                   (number) => (
                     <button
@@ -171,7 +180,6 @@ const Announcements = () => {
                   )
                 )}
 
-                {/* Next button */}
                 <button
                   onClick={() =>
                     setCurrentPage((prev) => Math.min(prev + 1, totalPages))
@@ -179,7 +187,6 @@ const Announcements = () => {
                   disabled={currentPage === totalPages}
                   className="p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <span className="sr-only">Next</span>
                   <svg
                     className="h-5 w-5"
                     viewBox="0 0 20 20"
