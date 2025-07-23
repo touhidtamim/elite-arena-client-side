@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import api from "../../../api/axiosInstance";
 import { AuthContext } from "../../../Provider/AuthProvider";
 import { toast } from "react-toastify";
+import CheckoutForm from "./CheckoutForm";
 
 const PaymentPage = () => {
   const { bookingId } = useParams();
@@ -72,35 +73,6 @@ const PaymentPage = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    if (!user?.email) {
-      toast.error("You must be logged in to pay");
-      return;
-    }
-
-    try {
-      const paymentData = {
-        bookingId,
-        email: user.email,
-        courtId: booking.courtId,
-        slots: booking.slots,
-        price: finalPrice,
-        date: booking.date,
-        couponCode: couponCode || null,
-        discountApplied: discount,
-      };
-
-      await api.post("/payments", paymentData);
-
-      toast.success("Payment successful! Booking confirmed.");
-      navigate("/dashboard/bookings/confirmed");
-    } catch (error) {
-      toast.error("Payment failed. Please try again.");
-    }
-  };
-
   if (loading)
     return <div className="text-white">Loading booking details...</div>;
   if (!booking) return <div className="text-white">Booking not found.</div>;
@@ -109,7 +81,8 @@ const PaymentPage = () => {
     <div className="max-w-xl mx-auto p-4 text-white">
       <h2 className="text-2xl font-bold mb-4">Payment Page</h2>
 
-      <div className="mb-4">
+      {/* Coupon Code Section */}
+      <div className="mb-6">
         <label className="block font-semibold mb-1">Coupon Code</label>
         <div className="flex gap-2">
           <input
@@ -130,7 +103,8 @@ const PaymentPage = () => {
         </div>
       </div>
 
-      <form onSubmit={handleSubmit} className="space-y-4">
+      {/* Booking Details Form */}
+      <form className="space-y-4 mb-6" onSubmit={(e) => e.preventDefault()}>
         <div>
           <label className="block mb-1">Email</label>
           <input
@@ -141,7 +115,7 @@ const PaymentPage = () => {
           />
         </div>
         <div>
-          <label className="block mb-1">Court Name</label>
+          <label className="block mb-1">Court</label>
           <input
             type="text"
             value={courtName}
@@ -176,13 +150,16 @@ const PaymentPage = () => {
             className="border rounded w-full p-2 bg-transparent text-white"
           />
         </div>
-        <button
-          type="submit"
-          className="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded w-full"
-        >
-          Pay Now
-        </button>
       </form>
+
+      {/* Stripe CheckoutForm */}
+      <CheckoutForm
+        booking={{ ...booking, email: user?.email }}
+        finalPrice={finalPrice}
+        couponCode={couponCode}
+        discount={discount}
+        onPaymentSuccess={() => navigate("/dashboard/bookings/confirmed")}
+      />
     </div>
   );
 };
