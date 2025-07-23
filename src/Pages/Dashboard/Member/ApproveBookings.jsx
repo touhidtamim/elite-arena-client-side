@@ -165,8 +165,8 @@ const ApproveBookings = () => {
                     {booking.date}
                   </div>
                 </div>
-                <span className="px-2 py-1 text-xs font-medium rounded-full bg-green-900 text-green-100">
-                  {booking.status}
+                <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-900 text-yellow-100">
+                  {booking.paid ? "Paid" : "Unpaid"}
                 </span>
               </div>
 
@@ -257,8 +257,8 @@ const ApproveBookings = () => {
                     ৳{booking.totalPrice}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-900 text-green-100">
-                      {booking.status}
+                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-900 text-yellow-100">
+                      {booking.paid ? "Paid" : "Unpaid"}
                     </span>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
@@ -266,7 +266,7 @@ const ApproveBookings = () => {
                       onClick={() => handlePayment(booking._id)}
                       className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md transition"
                     >
-                      Pay
+                      Pay Now
                     </button>
                     <button
                       onClick={() =>
