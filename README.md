@@ -1,6 +1,6 @@
 # 🏟️ Elite Arena - Sports Club Management System
 
-**Live Site:** [Elite Arena Live View](https://elite-arena.netlify.app)
+**Live Site:** [Elite Arena Live View](https://test-elite-arena.netlify.app)
 
 ---
 
