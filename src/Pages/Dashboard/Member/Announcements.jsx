@@ -8,7 +8,7 @@ const Announcements = () => {
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const queryClient = useQueryClient();
 
-  // 📦 Fetch announcements with React Query
+  // Fetch announcements with React Query
   const { data: announcements = [], isLoading: loading } = useQuery({
     queryKey: ["announcements"],
     queryFn: async () => {
@@ -17,7 +17,7 @@ const Announcements = () => {
     },
   });
 
-  // 🗑️ Delete mutation
+  //  Delete mutation
   const deleteAnnouncementMutation = useMutation({
     mutationFn: async (id) => {
       const res = await api.delete(`/announcements/${id}`);
@@ -31,7 +31,7 @@ const Announcements = () => {
     },
   });
 
-  // 🧠 Responsive itemsPerPage
+  //  Responsive itemsPerPage
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 768) {
@@ -46,11 +46,17 @@ const Announcements = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // 📃 Pagination logic
+  const sortedAnnouncements = [...announcements].sort(
+    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+  );
+  //  Pagination logic
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = announcements.slice(indexOfFirstItem, indexOfLastItem);
-  const totalPages = Math.ceil(announcements.length / itemsPerPage);
+  const currentItems = sortedAnnouncements.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
+  const totalPages = Math.ceil(sortedAnnouncements.length / itemsPerPage);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
