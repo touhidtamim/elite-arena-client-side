@@ -130,6 +130,17 @@ https://github.com/touhidtamim/elite-arena-client-side
 
 ---
 
+### 🔐 Admin Credentials
+
+Use the following credentials to log in as an admin:
+
+```
+Email: admin@elitearena.com
+Password: Abc123
+```
+
+---
+
 ## 👤 Developed By
 
 **Touhid Tamim**  
