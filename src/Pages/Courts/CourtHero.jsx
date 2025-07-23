@@ -81,9 +81,12 @@ const CourtHero = () => {
             transition={{ delay: 1.2, duration: 0.8 }}
             className="mt-10"
           >
-            <button className="px-8 py-3 bg-yellow-400 hover:bg-yellow-500 text-black font-medium rounded-md transition-colors duration-300">
+            <a
+              href="#premium-courts"
+              className="px-8 py-3 bg-yellow-400 hover:bg-yellow-500 text-black font-medium rounded-md transition-colors duration-300"
+            >
               Book Now
-            </button>
+            </a>
           </motion.div>
         </motion.div>
       </div>

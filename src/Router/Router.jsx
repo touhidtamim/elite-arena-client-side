@@ -62,6 +62,7 @@ const Router = createBrowserRouter([
     ),
     errorElement: <NotFound />,
     children: [
+      { index: true, element: <DashboardProfile /> },
       { path: "profile", element: <DashboardProfile /> },
       { path: "courts/add", element: <AddCourtPage /> },
       { path: "courts/manage", element: <ManageCourts /> },

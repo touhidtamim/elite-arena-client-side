@@ -21,6 +21,10 @@ const AllCourts = () => {
   const [dateError, setDateError] = useState("");
   const [slotError, setSlotError] = useState("");
 
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [courtsPerPage] = useState(6); // 6 courts per page (2 rows of 3)
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -40,6 +44,12 @@ const AllCourts = () => {
     };
     fetchData();
   }, [user]);
+
+  // Pagination logic
+  const indexOfLastCourt = currentPage * courtsPerPage;
+  const indexOfFirstCourt = indexOfLastCourt - courtsPerPage;
+  const currentCourts = courts.slice(indexOfFirstCourt, indexOfLastCourt);
+  const totalPages = Math.ceil(courts.length / courtsPerPage);
 
   const handleBookNow = (court) => {
     if (!user) {
@@ -134,10 +144,59 @@ const AllCourts = () => {
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {courts.map((court) => (
+            {currentCourts.map((court) => (
               <CourtCard key={court._id} court={court} onBook={handleBookNow} />
             ))}
           </div>
+
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <div className="flex justify-center mt-12">
+              <nav className="inline-flex rounded-md shadow">
+                <button
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.max(prev - 1, 1))
+                  }
+                  disabled={currentPage === 1}
+                  className={`px-4 py-2 rounded-l-md border border-gray-300 ${
+                    currentPage === 1
+                      ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                      : "bg-white text-gray-700 hover:bg-gray-50"
+                  }`}
+                >
+                  Previous
+                </button>
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                  (number) => (
+                    <button
+                      key={number}
+                      onClick={() => setCurrentPage(number)}
+                      className={`px-4 py-2 border-t border-b border-gray-300 ${
+                        currentPage === number
+                          ? "bg-blue-500 text-white"
+                          : "bg-white text-gray-700 hover:bg-gray-50"
+                      }`}
+                    >
+                      {number}
+                    </button>
+                  )
+                )}
+                <button
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                  }
+                  disabled={currentPage === totalPages}
+                  className={`px-4 py-2 rounded-r-md border border-gray-300 ${
+                    currentPage === totalPages
+                      ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                      : "bg-white text-gray-700 hover:bg-gray-50"
+                  }`}
+                >
+                  Next
+                </button>
+              </nav>
+            </div>
+          )}
         </div>
       </div>
       {isBookingModalOpen && selectedCourt && (
