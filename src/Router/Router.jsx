@@ -19,7 +19,6 @@ import TermsAndConditions from "../Components/Legal/TermsAndConditions";
 import PrivateRouter from "./PrivateRouter";
 
 // Dashboard pages
-import DashboardProfile from "../Pages/Dashboard/DashboardProfile";
 import AddCourtPage from "../Pages/Dashboard/Admin/AddCourtPage";
 import PendingBookings from "../Pages/Dashboard/Shared/PendingBookings";
 import ManageMember from "../Pages/Dashboard/Admin/ManageMember";
@@ -31,6 +30,9 @@ import ManageAnnouncement from "../Pages/Dashboard/Admin/ManageAnnouncement";
 import BookingsApproval from "../Pages/Dashboard/Admin/BookingsApproval";
 import ApproveBookings from "../Pages/Dashboard/Member/ApproveBookings";
 import PaymentPage from "../Pages/Dashboard/Member/PaymentPage";
+import DashboardProfile from "../Pages/Dashboard/Shared/DashboardProfile";
+import ConfirmBookings from "../Pages/Dashboard/Member/ConfirmBookings";
+import ManageBookings from "../Pages/Dashboard/Admin/ManageBookings";
 
 const Router = createBrowserRouter([
   {
@@ -66,6 +68,8 @@ const Router = createBrowserRouter([
       { path: "bookings/pending", element: <PendingBookings /> },
       { path: "bookings/approval", element: <BookingsApproval /> },
       { path: "bookings/approve", element: <ApproveBookings /> },
+      { path: "bookings/confirm", element: <ConfirmBookings /> },
+      { path: "bookings/manage", element: <ManageBookings /> },
       { path: "users", element: <AllUsers /> },
       { path: "coupons/manage", element: <ManageCoupons /> },
       { path: "announcements", element: <Announcements /> },

@@ -1,8 +1,8 @@
 import React, { useContext, useState, useRef, useEffect } from "react";
-import { AuthContext } from "../../Provider/AuthProvider";
+import { AuthContext } from "../../../Provider/AuthProvider";
 import { motion } from "framer-motion";
 import Swal from "sweetalert2";
-import api from "../../api/axiosInstance";
+import api from "../../../api/axiosInstance";
 
 const DashboardProfile = () => {
   const { user } = useContext(AuthContext);

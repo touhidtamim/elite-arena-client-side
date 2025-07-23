@@ -45,6 +45,23 @@ const navItems = [
   },
 
   {
+    name: "Confirm Bookings",
+    path: "/dashboard/bookings/confirm",
+    icon: <FiCheckSquare />,
+  },
+  {
+    name: "Manage Bookings",
+    path: "/dashboard/bookings/manage",
+    icon: <FiSettings />,
+  },
+
+  {
+    name: "Payment History",
+    path: "/dashboard/payments/history",
+    icon: <FiTag />,
+  },
+
+  {
     name: "Manage Members",
     path: "/dashboard/members",
     icon: <FiUser />,
