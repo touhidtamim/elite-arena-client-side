@@ -33,6 +33,7 @@ import PaymentPage from "../Pages/Dashboard/Member/PaymentPage";
 import DashboardProfile from "../Pages/Dashboard/Shared/DashboardProfile";
 import ConfirmBookings from "../Pages/Dashboard/Member/ConfirmBookings";
 import ManageBookings from "../Pages/Dashboard/Admin/ManageBookings";
+import PaymentHistory from "../Pages/Dashboard/Member/PaymentHistory";
 
 const Router = createBrowserRouter([
   {
@@ -72,6 +73,7 @@ const Router = createBrowserRouter([
       { path: "bookings/manage", element: <ManageBookings /> },
       { path: "users", element: <AllUsers /> },
       { path: "coupons/manage", element: <ManageCoupons /> },
+      { path: "payments/history", element: <PaymentHistory /> },
       { path: "announcements", element: <Announcements /> },
       { path: "announcements/manage", element: <ManageAnnouncement /> },
       { path: "payment/:bookingId", element: <PaymentPage /> },
