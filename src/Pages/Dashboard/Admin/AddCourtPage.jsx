@@ -76,7 +76,7 @@ const AddCourtPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 py-8 px-4 sm:px-6 lg:px-12 xl:px-20">
+    <div className="min-h-screen rounded-2xl bg-gray-900 py-8 px-4 sm:px-6 lg:px-12 xl:px-20">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

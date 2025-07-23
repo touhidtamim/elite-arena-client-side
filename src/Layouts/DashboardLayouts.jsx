@@ -22,6 +22,8 @@ const DashboardLayouts = () => {
 
       if (
         isSidebarOpen &&
+        sidebar &&
+        menuButton &&
         !sidebar.contains(event.target) &&
         !menuButton.contains(event.target)
       ) {
@@ -35,17 +37,17 @@ const DashboardLayouts = () => {
 
   return (
     <div className="flex min-h-screen bg-gray-800">
-      {/* Sidebar - Hidden on mobile by default */}
+      {/* Sidebar - fixed on all screen sizes */}
       <div
-        className={`sidebar fixed lg:static inset-y-0 left-0 z-40 transform ${
+        className={`sidebar fixed inset-y-0 left-0 z-40 transform ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
-        } transition-transform duration-300 ease-in-out w-72`}
+        } transition-transform duration-300 ease-in-out w-72 bg-gray-900`}
       >
         <Sidebar />
       </div>
 
       {/* Main content area */}
-      <div className="flex-1 min-w-0">
+      <div className="flex-1 min-w-0 min-h-screen overflow-y-auto lg:ml-72 lg:pt-0">
         {/* Mobile header */}
         <header className="lg:hidden sticky top-0 z-20 bg-gray-900 p-4 flex items-center justify-between">
           <h1 className="text-white font-serif font-semibold">
@@ -54,6 +56,7 @@ const DashboardLayouts = () => {
           <button
             className="menu-button text-white p-1"
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            aria-label="Toggle sidebar menu"
           >
             {isSidebarOpen ? (
               <FiX className="text-2xl" />

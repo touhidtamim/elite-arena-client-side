@@ -8,7 +8,9 @@ const ManageCoupons = () => {
 
   return (
     <div className="p-4">
-      <h2 className="text-3xl font-bold mb-6 text-white">Manage Coupons</h2>
+      <h2 className="text-3xl font-bold text-center mb-6 text-white">
+        Manage Coupons
+      </h2>
 
       {/* Add New Coupon */}
       <CouponForm onSuccess={triggerRefresh} />
