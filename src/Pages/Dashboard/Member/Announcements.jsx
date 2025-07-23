@@ -5,6 +5,8 @@ import { formatDistanceToNow } from "date-fns";
 const Announcements = () => {
   const [announcements, setAnnouncements] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10); // Default for desktop
 
   const fetchAnnouncements = async () => {
     try {
@@ -19,7 +21,35 @@ const Announcements = () => {
 
   useEffect(() => {
     fetchAnnouncements();
+
+    // Set items per page based on screen size
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        // Mobile
+        setItemsPerPage(6);
+      } else {
+        // Tablet and desktop
+        setItemsPerPage(10);
+      }
+    };
+
+    // Set initial value
+    handleResize();
+
+    // Add event listener
+    window.addEventListener("resize", handleResize);
+
+    // Clean up
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  // Get current announcements
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = announcements.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(announcements.length / itemsPerPage);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <div className="max-w-4xl mx-auto p-4">
@@ -71,29 +101,101 @@ const Announcements = () => {
           <p className="mt-1 text-gray-500">Check back later for updates!</p>
         </div>
       ) : (
-        <div className="space-y-6">
-          {announcements.map(({ _id, title, content, createdAt }) => (
-            <div
-              key={_id}
-              className="relative bg-gray-800/50 backdrop-blur-sm rounded-xl overflow-hidden p-6 border border-gray-700 hover:border-purple-500/30 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/10"
-            >
-              <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-purple-500 to-pink-600"></div>
-              <div className="pl-5">
-                <div className="flex justify-between items-start">
-                  <h3 className="text-xl font-bold text-white mb-2">{title}</h3>
-                  <span className="text-xs px-2 py-1 rounded-full bg-gray-700 text-gray-300">
-                    {formatDistanceToNow(new Date(createdAt), {
-                      addSuffix: true,
-                    })}
-                  </span>
+        <>
+          <div className="space-y-6">
+            {currentItems.map(({ _id, title, content, createdAt }) => (
+              <div
+                key={_id}
+                className="relative bg-gray-800/50 backdrop-blur-sm rounded-xl overflow-hidden p-6 border border-gray-700 hover:border-purple-500/30 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/10"
+              >
+                <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-purple-500 to-pink-600"></div>
+                <div className="pl-5">
+                  <div className="flex justify-between items-start">
+                    <h3 className="md:text-xl font-bold text-white mb-2">
+                      {title}
+                    </h3>
+                    <span className="text-xs px-2 py-1 rounded-full bg-gray-700 text-gray-300">
+                      {formatDistanceToNow(new Date(createdAt), {
+                        addSuffix: true,
+                      })}
+                    </span>
+                  </div>
+                  <p className="text-gray-300 mb-2 whitespace-pre-line">
+                    {content}
+                  </p>
                 </div>
-                <p className="text-gray-300 mb-2 whitespace-pre-line">
-                  {content}
-                </p>
               </div>
+            ))}
+          </div>
+
+          {/* Pagination */}
+          {announcements.length > itemsPerPage && (
+            <div className="flex justify-center mt-8">
+              <nav className="flex items-center gap-1">
+                {/* Previous button */}
+                <button
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.max(prev - 1, 1))
+                  }
+                  disabled={currentPage === 1}
+                  className="p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <span className="sr-only">Previous</span>
+                  <svg
+                    className="h-5 w-5"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </button>
+
+                {/* Page numbers */}
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                  (number) => (
+                    <button
+                      key={number}
+                      onClick={() => paginate(number)}
+                      className={`px-3 py-1 rounded-md text-sm font-medium ${
+                        currentPage === number
+                          ? "bg-purple-600 text-white"
+                          : "text-gray-400 hover:text-white hover:bg-gray-700"
+                      }`}
+                    >
+                      {number}
+                    </button>
+                  )
+                )}
+
+                {/* Next button */}
+                <button
+                  onClick={() =>
+                    setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+                  }
+                  disabled={currentPage === totalPages}
+                  className="p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <span className="sr-only">Next</span>
+                  <svg
+                    className="h-5 w-5"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </nav>
             </div>
-          ))}
-        </div>
+          )}
+        </>
       )}
     </div>
   );
