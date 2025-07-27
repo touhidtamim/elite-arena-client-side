@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 const GalleryHero = () => {
   return (
-    <section className="relative h-[90vh] pt-20 w-full overflow-hidden text-white flex items-center justify-center bg-black">
+    <section className="relative h-[60vh] md:h-[70vh] lg:h-[90vh] pt-20 w-full overflow-hidden text-white flex items-center justify-center bg-black">
       {/* Background with parallax effect */}
       <motion.div
         initial={{ scale: 1.1 }}
