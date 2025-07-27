@@ -6,7 +6,7 @@ const EventLandingHero = () => {
     "Elite Arena brings you the most thrilling upcoming events in sports, fitness, and community growth.";
 
   return (
-    <section className="relative h-[90vh] w-full overflow-hidden">
+    <section className="relative h-[60vh] md:h-[70vh] lg:h-[90vh] w-full overflow-hidden">
       {/* Background with parallax effect */}
       <motion.div
         initial={{ scale: 1.1 }}
