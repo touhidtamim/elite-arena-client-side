@@ -91,7 +91,7 @@ const Banner = () => {
   };
 
   return (
-    <section className="relative bg-gray-900 h-[70vh] md:h-[80vh] lg::h-[90vh] max-h-[900px] overflow-hidden pt-20">
+    <section className="relative bg-gray-900 h-[70vh] md:h-[80vh] lg:h-[90vh] max-h-[900px] overflow-hidden pt-20">
       {slides.map((slide, index) => (
         <motion.div
           key={slide.id}

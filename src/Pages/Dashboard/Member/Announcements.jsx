@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import api from "../../../api/axiosInstance";
 import { formatDistanceToNow } from "date-fns";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
 const Announcements = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
-  const queryClient = useQueryClient();
 
   // Fetch announcements with React Query
   const { data: announcements = [], isLoading: loading } = useQuery({
@@ -17,21 +16,7 @@ const Announcements = () => {
     },
   });
 
-  //  Delete mutation
-  const deleteAnnouncementMutation = useMutation({
-    mutationFn: async (id) => {
-      const res = await api.delete(`/announcements/${id}`);
-      return res.data;
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["announcements"] });
-    },
-    onError: (err) => {
-      console.error("Error deleting announcement:", err);
-    },
-  });
-
-  //  Responsive itemsPerPage
+  // Responsive itemsPerPage
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 768) {
@@ -49,7 +34,8 @@ const Announcements = () => {
   const sortedAnnouncements = [...announcements].sort(
     (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
   );
-  //  Pagination logic
+
+  // Pagination logic
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = sortedAnnouncements.slice(
@@ -129,13 +115,6 @@ const Announcements = () => {
                           addSuffix: true,
                         })}
                       </span>
-                      <button
-                        onClick={() => deleteAnnouncementMutation.mutate(_id)}
-                        className="text-xs text-red-500 hover:text-red-700"
-                        title="Delete announcement"
-                      >
-                        🗑️
-                      </button>
                     </div>
                   </div>
                   <p className="text-gray-300 mb-2 whitespace-pre-line">
