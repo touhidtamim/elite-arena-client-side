@@ -6,7 +6,7 @@ const HeroAboutIntro = () => {
     "Step into Elite Arena — where excellence meets passion, athletes become icons, and every match forges history.";
 
   return (
-    <section className="relative w-full h-[90vh] pt-20 bg-[#1f1f23] overflow-hidden">
+    <section className="relative w-full h-[60vh] md:h-[70vh] lg:h-[90vh] pt-20 bg-[#1f1f23] overflow-hidden">
       {/* Background Image with scale-out animation */}
       <motion.div
         className="absolute inset-0"
