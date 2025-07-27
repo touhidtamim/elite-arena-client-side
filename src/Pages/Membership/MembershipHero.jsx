@@ -5,7 +5,7 @@ const MembershipHero = () => {
     "Unlock access to premium perks, early reservations, and a lifestyle of elite privileges at Elite Arena.";
 
   return (
-    <section className="relative h-[90vh] w-full overflow-hidden">
+    <section className="relative h-[60vh] md:h-[70vh] lg:h-[90vh] w-full overflow-hidden">
       {/* Background Image with Parallax Zoom-Out */}
       <motion.div
         initial={{ scale: 1.1 }}
