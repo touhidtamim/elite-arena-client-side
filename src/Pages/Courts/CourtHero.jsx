@@ -6,7 +6,7 @@ const CourtHero = () => {
     "Book world-class courts and elevate your game with our state-of-the-art facilities.";
 
   return (
-    <section className="relative h-[90vh] w-full overflow-hidden">
+    <section className="relative h-[60vh] md:h-[70vh] lg:h-[90vh] w-full overflow-hidden">
       {/* Background with parallax effect - matching the original */}
       <motion.div
         initial={{ scale: 1.1 }}
