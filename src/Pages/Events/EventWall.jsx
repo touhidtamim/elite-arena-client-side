@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router";
 
 const eventTypes = ["All", "Upcoming", "Ongoing", "Featured", "Past Glory"];
 
@@ -228,17 +229,14 @@ const EventWall = () => {
         viewport={{ once: true }}
         className="text-center mt-12 md:mt-20"
       >
-        <motion.button
-          whileHover={{
-            scale: 1.05,
-            backgroundColor: "#f59e0b",
-            boxShadow: "0 10px 25px -5px rgba(245, 158, 11, 0.4)",
-          }}
-          whileTap={{ scale: 0.98 }}
-          className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-3 px-6 sm:py-4 sm:px-8 rounded-full text-base sm:text-lg shadow-lg"
-        >
-          View Full Event Calendar
-        </motion.button>
+        <motion.div>
+          <Link
+            to="/dashboard"
+            className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-3 px-6 sm:py-4 sm:px-8 rounded-full text-base sm:text-lg shadow-lg inline-block text-center"
+          >
+            View Full Event Calendar
+          </Link>
+        </motion.div>
       </motion.div>
     </div>
   );

@@ -26,10 +26,10 @@ import { Link } from "react-router";
 const StatCard = ({ title, value, icon }) => (
   <div className="bg-gray-800 p-4 rounded-xl shadow-md flex items-center justify-between hover:shadow-lg transition">
     <div>
-      <p className="text-gray-400">{title}</p>
-      <p className="text-2xl font-bold">{value}</p>
+      <p className="text-gray-400 text-sm sm:text-base">{title}</p>
+      <p className="text-xl sm:text-2xl font-bold">{value}</p>
     </div>
-    <div className="text-3xl text-yellow-500">{icon}</div>
+    <div className="text-2xl sm:text-3xl text-yellow-500">{icon}</div>
   </div>
 );
 
@@ -54,7 +54,6 @@ const Overview = () => {
     const fetchData = async () => {
       try {
         setLoading(true);
-
         const usersRes = await api.get("/users?");
         setMembersCount(usersRes.data.length);
 
@@ -118,10 +117,13 @@ const Overview = () => {
   ];
 
   return (
-    <div className="p-6 bg-gray-900 min-h-screen text-white">
-      <h2 className="text-3xl font-bold mb-6">Dashboard Overview</h2>
+    <div className="p-4 sm:p-6 bg-gray-900 min-h-screen text-white">
+      <h2 className="text-2xl sm:text-3xl font-bold mb-6">
+        Dashboard Overview
+      </h2>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      {/* Stat Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8">
         {cards.map((card, idx) => (
           <StatCard
             key={idx}
@@ -132,9 +134,10 @@ const Overview = () => {
         ))}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-        <div className="bg-gray-800 p-4 rounded-xl shadow-md">
-          <h3 className="text-lg font-semibold mb-4 text-gray-300">
+      {/* Charts */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 mb-8">
+        <div className="bg-gray-800 p-4 sm:p-6 rounded-xl shadow-md">
+          <h3 className="text-lg sm:text-xl font-semibold mb-4 text-gray-300">
             Bookings Over the Week (Approved)
           </h3>
           <ResponsiveContainer width="100%" height={250}>
@@ -155,8 +158,8 @@ const Overview = () => {
           </ResponsiveContainer>
         </div>
 
-        <div className="bg-gray-800 p-4 rounded-xl shadow-md">
-          <h3 className="text-lg font-semibold mb-4 text-gray-300">
+        <div className="bg-gray-800 p-4 sm:p-6 rounded-xl shadow-md">
+          <h3 className="text-lg sm:text-xl font-semibold mb-4 text-gray-300">
             Facility Usage
           </h3>
           <ResponsiveContainer width="100%" height={250}>
@@ -183,9 +186,10 @@ const Overview = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-gray-800 p-4 rounded-xl shadow-md">
-          <h3 className="text-lg font-semibold mb-4 text-gray-300">
+      {/* Notifications & Quick Actions */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+        <div className="bg-gray-800 p-4 sm:p-6 rounded-xl shadow-md">
+          <h3 className="text-lg sm:text-xl font-semibold mb-4 text-gray-300">
             Notifications
           </h3>
           <ul className="list-disc list-inside text-gray-400">
@@ -195,26 +199,26 @@ const Overview = () => {
           </ul>
         </div>
 
-        <div className="bg-gray-800 p-4 rounded-xl shadow-md">
-          <h3 className="text-lg font-semibold mb-4 text-gray-300">
+        <div className="bg-gray-800 p-4 sm:p-6 rounded-xl shadow-md">
+          <h3 className="text-lg sm:text-xl font-semibold mb-4 text-gray-300">
             Quick Actions
           </h3>
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-2 sm:gap-3">
             <Link
               to="/courts"
-              className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-4 rounded-xl transition text-center"
+              className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-4 sm:py-2.5 sm:px-5 rounded-xl transition text-center"
             >
               Book Courts
             </Link>
             <Link
               to="/events"
-              className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-4 rounded-xl transition text-center"
+              className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-4 sm:py-2.5 sm:px-5 rounded-xl transition text-center"
             >
               Register Event
             </Link>
             <Link
               to="/membership"
-              className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-4 rounded-xl transition text-center"
+              className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-4 sm:py-2.5 sm:px-5 rounded-xl transition text-center"
             >
               Renew Membership
             </Link>
