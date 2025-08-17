@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import CourtCard from "./CourtCard";
 import BookingModal from "./BookingModal";
+import Spinner from "./../../../Components/Shared/Spinner";
 
 const AllCourts = () => {
   const { user } = useContext(AuthContext);
@@ -185,7 +186,7 @@ const AllCourts = () => {
     }
   };
 
-  if (loading) return <div className="text-center py-20">Loading...</div>;
+  if (loading) return <Spinner />;
   if (error)
     return <div className="text-center text-red-500 py-20">{error}</div>;
   if (!courts.length)

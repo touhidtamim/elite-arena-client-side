@@ -25,13 +25,12 @@ const CourtCard = ({ court, onBook }) => {
       <div className="h-48 overflow-hidden relative">
         <img
           src={
-            court.image ||
-            "https://images.unsplash.com/photo-1543357480-c60d400e7ef6?auto=format&fit=crop&w=1470&q=80"
+            court.image || "/ImgPlaceholder/image-coming-soon-placeholder.webp"
           }
           alt={court.name}
           onError={(e) =>
             (e.target.src =
-              "https://images.unsplash.com/photo-1543357480-c60d400e7ef6?auto=format&fit=crop&w=1470&q=80")
+              "/ImgPlaceholder/image-coming-soon-placeholder.webp")
           }
           className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
         />
