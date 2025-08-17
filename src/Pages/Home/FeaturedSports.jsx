@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { Link } from "react-router";
 
 const sports = [
   {
@@ -120,9 +121,12 @@ const FeaturedSports = () => {
                 <span className="text-5xl mb-3">{sport.icon}</span>
                 <h3 className="text-2xl font-bold mb-2">{sport.name}</h3>
                 <div className="w-12 h-1 bg-white my-3 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                <button className="mt-4 px-6 py-2 bg-white text-gray-900 font-medium rounded-full opacity-0 group-hover:opacity-100 transform group-hover:translate-y-0 translate-y-4 transition-all duration-300">
+                <Link
+                  to="/courts#premium-courts"
+                  className="mt-4 px-6 py-2 bg-white text-gray-900 font-medium rounded-full opacity-0 group-hover:opacity-100 transform group-hover:translate-y-0 translate-y-4 transition-all duration-300"
+                >
                   Explore
-                </button>
+                </Link>
               </div>
             </motion.div>
           ))}
@@ -136,9 +140,12 @@ const FeaturedSports = () => {
           viewport={{ once: true }}
           className="text-center mt-16"
         >
-          <button className="px-8 py-3 bg-yellow-500 hover:bg-yellow-600 text-black font-bold rounded-full shadow-lg transition-all transform hover:scale-105">
+          <Link
+            to="/courts#premium-courts"
+            className="px-8 py-3 bg-yellow-500 hover:bg-yellow-600 text-black font-bold rounded-full shadow-lg transition-all transform hover:scale-105"
+          >
             View All Sports Facilities
-          </button>
+          </Link>
         </motion.div>
       </div>
     </section>
