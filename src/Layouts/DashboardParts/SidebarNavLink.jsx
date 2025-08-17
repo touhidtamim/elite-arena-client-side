@@ -15,6 +15,12 @@ import useUserRole from "../../hooks/useUserRole";
 
 const allNavItems = [
   {
+    name: "Overview",
+    path: "/dashboard/overview",
+    icon: <FiGrid />,
+    roles: ["admin", "member", "user"],
+  },
+  {
     name: "Add Court",
     path: "/dashboard/courts/add",
     icon: <FiPlusSquare />,

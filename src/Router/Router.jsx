@@ -34,6 +34,7 @@ import DashboardProfile from "../Pages/Dashboard/Shared/DashboardProfile";
 import ConfirmBookings from "../Pages/Dashboard/Member/ConfirmBookings";
 import ManageBookings from "../Pages/Dashboard/Admin/ManageBookings";
 import PaymentHistory from "../Pages/Dashboard/Member/PaymentHistory";
+import Overview from "../Pages/Dashboard/Shared/Overview/overview";
 
 const Router = createBrowserRouter([
   {
@@ -62,7 +63,8 @@ const Router = createBrowserRouter([
     ),
     errorElement: <NotFound />,
     children: [
-      { index: true, element: <DashboardProfile /> },
+      { index: true, element: <Overview /> },
+      { path: "overview", element: <Overview /> },
       { path: "profile", element: <DashboardProfile /> },
       { path: "courts/add", element: <AddCourtPage /> },
       { path: "courts/manage", element: <ManageCourts /> },
