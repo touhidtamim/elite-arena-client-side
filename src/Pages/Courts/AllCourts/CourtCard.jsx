@@ -10,7 +10,7 @@ import {
 const CourtCard = ({ court, onBook }) => {
   return (
     <motion.div
-      // key={court.id}
+      key={court.id}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
