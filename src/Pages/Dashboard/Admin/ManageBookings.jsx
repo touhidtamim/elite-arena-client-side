@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import api from "../../../api/axiosInstance";
 import { toast } from "react-toastify";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
+import Spinner from "../../../Components/Shared/Spinner";
 
 const ManageBookings = () => {
   const [bookings, setBookings] = useState([]);
@@ -85,13 +86,7 @@ const ManageBookings = () => {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-      </div>
-    );
-  }
+  if (loading) return <Spinner />;
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">

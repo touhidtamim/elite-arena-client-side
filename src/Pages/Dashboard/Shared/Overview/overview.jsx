@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   LineChart,
   Line,
@@ -11,108 +11,140 @@ import {
   Cell,
   Legend,
   ResponsiveContainer,
-  BarChart,
-  Bar,
 } from "recharts";
 import {
   FaUsers,
-  FaCalendarAlt,
   FaClipboardList,
+  FaCalendarAlt,
   FaDoorOpen,
 } from "react-icons/fa";
+import api from "../../../../api/axiosInstance";
+import { AuthContext } from "../../../../Provider/AuthProvider";
+import Spinner from "../../../../Components/Shared/Spinner";
+import { Link } from "react-router";
+
+const StatCard = ({ title, value, icon }) => (
+  <div className="bg-gray-800 p-4 rounded-xl shadow-md flex items-center justify-between hover:shadow-lg transition">
+    <div>
+      <p className="text-gray-400">{title}</p>
+      <p className="text-2xl font-bold">{value}</p>
+    </div>
+    <div className="text-3xl text-yellow-500">{icon}</div>
+  </div>
+);
 
 const Overview = () => {
-  // Dummy data
-  const stats = [
-    {
-      title: "Total Members",
-      value: 320,
-      icon: <FaUsers className="text-3xl text-yellow-500" />,
-    },
-    {
-      title: "Active Bookings",
-      value: 75,
-      icon: <FaCalendarAlt className="text-3xl text-yellow-500" />,
-    },
-    {
-      title: "Upcoming Events",
-      value: 12,
-      icon: <FaClipboardList className="text-3xl text-yellow-500" />,
-    },
-    {
-      title: "Available Facilities",
-      value: 8,
-      icon: <FaDoorOpen className="text-3xl text-yellow-500" />,
-    },
-  ];
-
-  const bookingsData = [
-    { day: "Mon", bookings: 10 },
-    { day: "Tue", bookings: 15 },
-    { day: "Wed", bookings: 8 },
-    { day: "Thu", bookings: 20 },
-    { day: "Fri", bookings: 18 },
-    { day: "Sat", bookings: 25 },
-    { day: "Sun", bookings: 12 },
-  ];
-
-  const facilityData = [
+  const { user } = useContext(AuthContext);
+  const [membersCount, setMembersCount] = useState(0);
+  const [approvedBookingsCount, setApprovedBookingsCount] = useState(0);
+  const [pendingBookingsCount, setPendingBookingsCount] = useState(0);
+  const [availableFacilities] = useState([
     { name: "Courts", value: 40 },
     { name: "Halls", value: 30 },
     { name: "Swimming Pool", value: 20 },
     { name: "Gym", value: 10 },
-  ];
+  ]);
+  const [bookingsData, setBookingsData] = useState([]);
+  const [announcements, setAnnouncements] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const COLORS = ["#FACC15", "#FBBF24", "#F59E0B", "#B45309"];
 
-  const eventsData = [
-    { name: "Football", participants: 20 },
-    { name: "Basketball", participants: 15 },
-    { name: "Tennis", participants: 8 },
-    { name: "Swimming", participants: 12 },
-  ];
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
 
-  const notifications = [
-    "New booking request from John Doe",
-    "Membership renewal reminder: Alice",
-    "Upcoming event: Annual Sports Day",
+        const usersRes = await api.get("/users?");
+        setMembersCount(usersRes.data.length);
+
+        const bookingsRes = await api.get(`/bookings?userEmail=${user.email}`);
+        const approved = bookingsRes.data.filter(
+          (b) => b.status === "approved"
+        );
+        const pending = bookingsRes.data.filter((b) => b.status === "pending");
+        setApprovedBookingsCount(approved.length);
+        setPendingBookingsCount(pending.length);
+
+        const weekDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+        const dayCountMap = {};
+        weekDays.forEach((day) => (dayCountMap[day] = 0));
+        approved.forEach((b) => {
+          const bookingDate = new Date(b.date);
+          const dayName =
+            weekDays[bookingDate.getDay() === 0 ? 6 : bookingDate.getDay() - 1];
+          dayCountMap[dayName] += 1;
+        });
+        const chartData = weekDays.map((day) => ({
+          day,
+          bookings: dayCountMap[day],
+        }));
+        setBookingsData(chartData);
+
+        const announcementsRes = await api.get("/announcements");
+        const latestAnnouncements = announcementsRes.data
+          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+          .slice(0, 4);
+        setAnnouncements(latestAnnouncements);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [user.email]);
+
+  if (loading) return <Spinner />;
+
+  const cards = [
+    { title: "Total Members", value: membersCount, icon: <FaUsers /> },
+    {
+      title: "Approved Bookings",
+      value: approvedBookingsCount,
+      icon: <FaClipboardList />,
+    },
+    {
+      title: "Pending Bookings",
+      value: pendingBookingsCount,
+      icon: <FaCalendarAlt />,
+    },
+    {
+      title: "Available Facilities",
+      value: availableFacilities.length,
+      icon: <FaDoorOpen />,
+    },
   ];
 
   return (
-    <div className="p-6 bg-gray-100 min-h-screen">
-      <h2 className="text-3xl font-bold mb-6 text-gray-800">
-        Dashboard Overview
-      </h2>
+    <div className="p-6 bg-gray-900 min-h-screen text-white">
+      <h2 className="text-3xl font-bold mb-6">Dashboard Overview</h2>
 
-      {/* Stats Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-        {stats.map((stat, i) => (
-          <div
-            key={i}
-            className="bg-white p-4 rounded-lg shadow-md flex items-center justify-between hover:shadow-lg transition"
-          >
-            <div>
-              <p className="text-gray-500">{stat.title}</p>
-              <p className="text-2xl font-bold text-gray-800">{stat.value}</p>
-            </div>
-            <div>{stat.icon}</div>
-          </div>
+        {cards.map((card, idx) => (
+          <StatCard
+            key={idx}
+            title={card.title}
+            value={card.value}
+            icon={card.icon}
+          />
         ))}
       </div>
 
-      {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-        {/* Bookings Line Chart */}
-        <div className="bg-white p-4 rounded-lg shadow-md">
-          <h3 className="text-lg font-semibold mb-4 text-gray-700">
-            Bookings Over the Week
+        <div className="bg-gray-800 p-4 rounded-xl shadow-md">
+          <h3 className="text-lg font-semibold mb-4 text-gray-300">
+            Bookings Over the Week (Approved)
           </h3>
           <ResponsiveContainer width="100%" height={250}>
             <LineChart data={bookingsData}>
-              <CartesianGrid stroke="#f0f0f0" />
-              <XAxis dataKey="day" />
-              <YAxis />
-              <Tooltip />
+              <CartesianGrid stroke="#2d2d2d" />
+              <XAxis dataKey="day" stroke="#9ca3af" />
+              <YAxis stroke="#9ca3af" />
+              <Tooltip
+                contentStyle={{ backgroundColor: "#1f2937", border: "none" }}
+              />
               <Line
                 type="monotone"
                 dataKey="bookings"
@@ -123,83 +155,69 @@ const Overview = () => {
           </ResponsiveContainer>
         </div>
 
-        {/* Facility Usage Pie Chart */}
-        <div className="bg-white p-4 rounded-lg shadow-md">
-          <h3 className="text-lg font-semibold mb-4 text-gray-700">
+        <div className="bg-gray-800 p-4 rounded-xl shadow-md">
+          <h3 className="text-lg font-semibold mb-4 text-gray-300">
             Facility Usage
           </h3>
           <ResponsiveContainer width="100%" height={250}>
             <PieChart>
               <Pie
-                data={facilityData}
+                data={availableFacilities}
                 dataKey="value"
                 nameKey="name"
                 cx="50%"
                 cy="50%"
                 outerRadius={80}
-                fill="#8884d8"
                 label
               >
-                {facilityData.map((entry, index) => (
+                {availableFacilities.map((entry, index) => (
                   <Cell
                     key={`cell-${index}`}
                     fill={COLORS[index % COLORS.length]}
                   />
                 ))}
               </Pie>
-              <Legend />
+              <Legend wrapperStyle={{ color: "#d1d5db" }} />
             </PieChart>
           </ResponsiveContainer>
         </div>
       </div>
 
-      {/* Event Participation Bar Chart */}
-      <div className="bg-white p-4 rounded-lg shadow-md mb-8">
-        <h3 className="text-lg font-semibold mb-4 text-gray-700">
-          Event Participation
-        </h3>
-        <ResponsiveContainer width="100%" height={250}>
-          <BarChart data={eventsData}>
-            <CartesianGrid stroke="#f0f0f0" />
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Bar dataKey="participants" fill="#FBBF24" />
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
-
-      {/* Notifications & Quick Actions */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Notifications */}
-        <div className="bg-white p-4 rounded-lg shadow-md">
-          <h3 className="text-lg font-semibold mb-4 text-gray-700">
+        <div className="bg-gray-800 p-4 rounded-xl shadow-md">
+          <h3 className="text-lg font-semibold mb-4 text-gray-300">
             Notifications
           </h3>
-          <ul className="list-disc list-inside text-gray-600">
-            {notifications.map((note, idx) => (
-              <li key={idx} className="mb-2">
-                {note}
-              </li>
+          <ul className="list-disc list-inside text-gray-400">
+            {announcements.map((item) => (
+              <li key={item._id}>{item.title}</li>
             ))}
           </ul>
         </div>
 
-        {/* Quick Actions */}
-        <div className="bg-white p-4 rounded-lg shadow-md">
-          <h3 className="text-lg font-semibold mb-4 text-gray-700">
+        <div className="bg-gray-800 p-4 rounded-xl shadow-md">
+          <h3 className="text-lg font-semibold mb-4 text-gray-300">
             Quick Actions
           </h3>
           <div className="flex flex-col gap-3">
-            <button className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-4 rounded-lg transition">
-              Book Facility
-            </button>
-            <button className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-4 rounded-lg transition">
+            <Link
+              to="/courts"
+              className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-4 rounded-xl transition text-center"
+            >
+              Book Courts
+            </Link>
+            <Link
+              to="/events"
+              className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-4 rounded-xl transition text-center"
+            >
               Register Event
-            </button>
-            <button className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-4 rounded-lg transition">
+            </Link>
+            <Link
+              to="/membership"
+              className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-2 px-4 rounded-xl transition text-center"
+            >
               Renew Membership
-            </button>
+            </Link>
           </div>
         </div>
       </div>

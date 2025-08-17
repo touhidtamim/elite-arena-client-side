@@ -3,6 +3,7 @@ import api from "../../../api/axiosInstance";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
+import Spinner from "../../../Components/Shared/Spinner";
 
 const BookingsApproval = () => {
   const [bookings, setBookings] = useState([]);
@@ -133,13 +134,7 @@ const BookingsApproval = () => {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-      </div>
-    );
-  }
+  if (loading) return <Spinner />;
 
   if (bookings.length === 0) {
     return (
