@@ -10,6 +10,7 @@ import BookingModal from "./BookingModal";
 const AllCourts = () => {
   const { user } = useContext(AuthContext);
   const [courts, setCourts] = useState([]);
+  const [filteredCourts, setFilteredCourts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedCourt, setSelectedCourt] = useState(null);
@@ -21,9 +22,27 @@ const AllCourts = () => {
   const [dateError, setDateError] = useState("");
   const [slotError, setSlotError] = useState("");
 
+  // Search and filter states
+  const [searchTerm, setSearchTerm] = useState("");
+  const [sortOrder, setSortOrder] = useState("none");
+  const [selectedLocation, setSelectedLocation] = useState("all");
+
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const [courtsPerPage] = useState(6); // 6 courts per page (2 rows of 3)
+
+  // Location options
+  const locationOptions = [
+    { value: "all", label: "All Locations" },
+    { value: "dhaka", label: "Dhaka" },
+    { value: "chittagong", label: "Chittagong" },
+    { value: "rajshahi", label: "Rajshahi" },
+    { value: "sylhet", label: "Sylhet" },
+    { value: "khulna", label: "Khulna" },
+    { value: "rangpur", label: "rangpur" },
+    { value: "comilla", label: "comilla" },
+    { value: "mymensingh", label: "mymensingh" },
+  ];
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,7 +54,7 @@ const AllCourts = () => {
             : Promise.resolve({ data: [] }),
         ]);
         setCourts(courtsResponse.data);
-        setExistingBookings(bookingsResponse.data);
+        setFilteredCourts(courtsResponse.data);
       } catch (err) {
         setError(err.response?.data?.error || "Failed to fetch data");
       } finally {
@@ -45,11 +64,53 @@ const AllCourts = () => {
     fetchData();
   }, [user]);
 
+  // Apply filters and sorting whenever searchTerm, sortOrder, or selectedLocation changes
+  useEffect(() => {
+    let result = [...courts];
+
+    // Apply location filter
+    if (selectedLocation !== "all") {
+      result = result.filter(
+        (court) =>
+          court.location.toLowerCase() === selectedLocation.toLowerCase()
+      );
+    }
+
+    // Apply search filter
+    if (searchTerm) {
+      const term = searchTerm.toLowerCase();
+      result = result.filter(
+        (court) =>
+          court.name.toLowerCase().includes(term) ||
+          court.location.toLowerCase().includes(term) ||
+          court.type.toLowerCase().includes(term)
+      );
+    }
+
+    // Apply sorting
+    if (sortOrder !== "none") {
+      result.sort((a, b) => {
+        if (sortOrder === "price-asc") {
+          return a.rate - b.rate;
+        } else if (sortOrder === "price-desc") {
+          return b.rate - a.rate;
+        }
+        return 0;
+      });
+    }
+
+    setFilteredCourts(result);
+    setCurrentPage(1); // Reset to first page when filters change
+  }, [courts, searchTerm, sortOrder, selectedLocation]);
+
   // Pagination logic
   const indexOfLastCourt = currentPage * courtsPerPage;
   const indexOfFirstCourt = indexOfLastCourt - courtsPerPage;
-  const currentCourts = courts.slice(indexOfFirstCourt, indexOfLastCourt);
-  const totalPages = Math.ceil(courts.length / courtsPerPage);
+  const currentCourts = filteredCourts.slice(
+    indexOfFirstCourt,
+    indexOfLastCourt
+  );
+  const totalPages = Math.ceil(filteredCourts.length / courtsPerPage);
 
   const handleBookNow = (court) => {
     if (!user) {
@@ -131,8 +192,7 @@ const AllCourts = () => {
     return <div className="text-center py-20">No courts available</div>;
 
   return (
-    <div id="premium-courts" className="bg-gray-900">
-      <div className="bg-gradient-to-b from-gray-950 to-gray-800 h-24" />
+    <div id="premium-courts">
       <div className="bg-white min-h-screen py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
@@ -143,14 +203,103 @@ const AllCourts = () => {
               Explore and book from our selection of top-quality sports courts.
             </p>
           </div>
+
+          {/* Search and Filter Section */}
+          <div className="mb-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+            {/* Search Input */}
+            <div>
+              <label
+                htmlFor="search"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
+                Search Courts
+              </label>
+              <input
+                type="text"
+                id="search"
+                placeholder="Search by name, location or type..."
+                className="w-full px-4 py-2 border border-gray-300 text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
+
+            {/* Location Filter */}
+            <div>
+              <label
+                htmlFor="location"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
+                Filter by Location
+              </label>
+              <select
+                id="location"
+                className="w-full px-4 py-2 border border-gray-300 text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={selectedLocation}
+                onChange={(e) => setSelectedLocation(e.target.value)}
+              >
+                {locationOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Sort Options */}
+            <div>
+              <label
+                htmlFor="sort"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
+                Sort by Price
+              </label>
+              <select
+                id="sort"
+                className="w-full px-4 py-2 border border-gray-300 text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                value={sortOrder}
+                onChange={(e) => setSortOrder(e.target.value)}
+              >
+                <option value="none">Default</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+              </select>
+            </div>
+          </div>
+
+          {/* Results Count */}
+          <div className="mb-4 text-gray-600">
+            Showing {filteredCourts.length} courts
+          </div>
+
+          {/* Courts Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {currentCourts.map((court) => (
               <CourtCard key={court._id} court={court} onBook={handleBookNow} />
             ))}
           </div>
 
+          {/* No Results Message */}
+          {filteredCourts.length === 0 && (
+            <div className="text-center py-12">
+              <h3 className="text-xl font-medium text-gray-700">
+                No courts found matching your criteria
+              </h3>
+              <button
+                onClick={() => {
+                  setSearchTerm("");
+                  setSortOrder("none");
+                  setSelectedLocation("all");
+                }}
+                className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
+              >
+                Clear Filters
+              </button>
+            </div>
+          )}
+
           {/* Pagination */}
-          {totalPages > 1 && (
+          {totalPages > 1 && filteredCourts.length > 0 && (
             <div className="flex justify-center mt-12">
               <nav className="inline-flex rounded-md shadow">
                 <button

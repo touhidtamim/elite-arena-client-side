@@ -10,10 +10,10 @@ import {
 const CourtCard = ({ court, onBook }) => {
   return (
     <motion.div
+      // key={court.id}
       initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
-      viewport={{ once: true }}
       className="relative bg-white rounded-xl shadow-lg overflow-hidden border border-gray-200 transition-all duration-300 group
              hover:shadow-md hover:border-yellow-400"
     >
