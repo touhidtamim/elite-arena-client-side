@@ -45,7 +45,7 @@ const EliteExperience = () => {
           <div className="w-full md:w-1/2 relative">
             <div className="relative h-[300px] sm:h-[400px] md:h-[500px] w-full overflow-hidden rounded-xl shadow-lg">
               <img
-                src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b"
+                src="/BannerImg/slide-3.webp"
                 alt="Elite Experience"
                 className="absolute inset-0 w-full h-full object-cover"
               />
