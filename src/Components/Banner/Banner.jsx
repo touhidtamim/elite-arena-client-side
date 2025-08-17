@@ -8,8 +8,7 @@ const slides = [
     title: "Elite Championship Training",
     subtitle: "2026 Season Registration",
     description: "Train like the pros with national-level cricket coaches",
-    image:
-      "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+    image: "/BannerImg/slide-1.webp",
     cta: "Join Now",
     link: "/membership",
   },
@@ -19,8 +18,7 @@ const slides = [
     subtitle: "Ages 14-21",
     description:
       "Develop championship mentality with our proven training system",
-    image:
-      "https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+    image: "/BannerImg/slide-2.webp",
     cta: "Discover More",
     link: "/membership",
   },
@@ -29,8 +27,7 @@ const slides = [
     title: "Elite Performance Center",
     subtitle: "Now Open",
     description: "Bangladesh's most advanced sports science facility",
-    image:
-      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+    image: "/BannerImg/slide-3.webp",
     cta: "Book Tour",
     link: "/courts",
   },
@@ -39,8 +36,7 @@ const slides = [
     title: "Summer Intensive Camp",
     subtitle: "Limited Spaces",
     description: "6-week transformational training with international coaches",
-    image:
-      "https://images.unsplash.com/photo-1471295253337-3ceaaedca402?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+    image: "/BannerImg/slide-4.webp",
     cta: "Reserve Spot",
     link: "/courts",
   },
@@ -49,8 +45,7 @@ const slides = [
     title: "Pro Athlete Combine",
     subtitle: "October 2026",
     description: "Showcase your skills for national team scouts",
-    image:
-      "https://images.unsplash.com/photo-1517649763962-0c623066013b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+    image: "/BannerImg/slide-5.webp",
     cta: "Register Now",
     link: "/membership",
   },
