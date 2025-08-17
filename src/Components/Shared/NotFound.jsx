@@ -47,15 +47,6 @@ const NotFound = () => {
             Home
           </button>
         </div>
-
-        <div className="mt-8 pt-6 border-t border-gray-200">
-          <p className="text-sm text-gray-500">
-            Need help?{" "}
-            <a href="/contact" className="text-purple-600 hover:underline">
-              Contact support
-            </a>
-          </p>
-        </div>
       </div>
     </div>
   );
