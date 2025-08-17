@@ -34,7 +34,7 @@ const Footer = () => {
               className="flex space-x-4"
             >
               <a
-                href="https://facebook.com"
+                href="https://facebook.com/touhidtamim01"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-blue-500 transition-colors"
@@ -79,7 +79,7 @@ const Footer = () => {
                 </svg>
               </a>
               <a
-                href="https://youtube.com"
+                href="https://youtube.com/@touhidtamim"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-red-700 transition-colors"
