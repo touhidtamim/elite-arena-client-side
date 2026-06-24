@@ -144,7 +144,7 @@ Password: Abc123
 ## 👤 Developed By
 
 **Touhid Tamim**  
-`CSE Undergrad` | `daffodil international university`
+`CSE Undergrad` | `Daffodil International University`
 
 ---
 
