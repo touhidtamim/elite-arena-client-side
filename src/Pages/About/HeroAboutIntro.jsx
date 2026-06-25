@@ -15,7 +15,7 @@ const HeroAboutIntro = () => {
         transition={{ duration: 1.5, ease: "easeOut" }}
       >
         <img
-          src="https://i.ibb.co/XfzCKmyV/above-horizon-IFM5-DHr-Ilio-unsplash.jpg"
+          src="public/IntroImg/about.webp"
           alt="Elite Arena"
           className="w-full h-full object-cover object-center opacity-30"
         />

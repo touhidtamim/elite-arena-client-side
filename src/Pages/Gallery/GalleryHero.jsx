@@ -12,7 +12,7 @@ const GalleryHero = () => {
         className="absolute inset-0 w-full h-full"
       >
         <img
-          src="https://i.postimg.cc/Gt391rcR/photo-1663440234478-0ed988066e55-mark-https-images-unsplash-com-opengraph-logo-png-mark-w-64-mark.jpg"
+          src="public/IntroImg/gallery.webp"
           alt="Elite Arena Stadium"
           className="w-full h-full object-cover opacity-40"
           loading="eager"

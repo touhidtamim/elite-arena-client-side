@@ -15,7 +15,7 @@ const EventLandingHero = () => {
         className="absolute inset-0"
       >
         <img
-          src="https://i.postimg.cc/k5C6MdZB/photo-1568663469495-b09d5e3c2e07-q-80-w-1170-auto-format-fit-crop-ixlib-rb-4-1.jpg"
+          src="public/IntroImg/event.webp"
           alt="Elite Arena Event"
           className="w-full h-full object-cover"
           loading="eager"

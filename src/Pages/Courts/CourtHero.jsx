@@ -15,7 +15,7 @@ const CourtHero = () => {
         className="absolute inset-0"
       >
         <img
-          src="https://i.ibb.co/LhhJhf9z/horizontal-view-little-football-stadium-faroe-islands.jpg"
+          src="public/IntroImg/court.webp"
           alt="Premium sports facilities"
           className="w-full h-full object-cover"
           loading="eager"

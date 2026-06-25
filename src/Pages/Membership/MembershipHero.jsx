@@ -14,7 +14,7 @@ const MembershipHero = () => {
         className="absolute inset-0"
       >
         <img
-          src="https://i.postimg.cc/Pqcx7pZs/photo-1559171667-74fe3499b5ba-q-80-w-1170-auto-format-fit-crop-ixlib-rb-4-1.jpg"
+          src="public/IntroImg/membership.webp"
           alt="Elite Arena Membership"
           className="w-full h-full object-cover object-center"
           loading="eager"
