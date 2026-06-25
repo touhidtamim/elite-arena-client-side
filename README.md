@@ -144,7 +144,7 @@ Password: Abc123
 ## 👤 Developed By
 
 **Touhid Tamim**  
-`WEB11-3318` | Programming Hero Web Development Course (Batch 11)
+`CSE Undergrad` | `Daffodil International University`
 
 ---
 
